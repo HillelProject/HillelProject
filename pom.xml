@@ -40,7 +40,7 @@
                     <programs>
                         <program>
                             <mainClass>App</mainClass>
-                            <name>workerBot</name>
+                            <name>telegramBotsApi</name>
                         </program>
                     </programs>
                 </configuration>
