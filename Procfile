@@ -1,1 +1,1 @@
-worker: sh target/bin/telegramBotsApi
+worker: sh target/classes/App
