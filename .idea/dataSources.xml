@@ -5,7 +5,7 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://ec2-52-18-116-67.eu-west-1.compute.amazonaws.com:5432/decsc6nn5nc3am</jdbc-url>
+      <jdbc-url>jdbc:postgresql://ec2-54-75-184-144.eu-west-1.compute.amazonaws.com:5432/d58pld23fdkd1a</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
