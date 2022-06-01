@@ -39,7 +39,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>App</mainClass>
+                            <mainClass>ChatBot</mainClass>
                             <name>telegramBotsApi</name>
                         </program>
                     </programs>
