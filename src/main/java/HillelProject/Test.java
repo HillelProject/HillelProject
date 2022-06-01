@@ -10,7 +10,7 @@ public class Test {
         Scanner scanner = new Scanner(System.in);
         String product = scanner.nextLine();
         MainJava mainJava = new MainJava();
-        String sqlWorker = ("Select * from decsc6nn5nc3am.products.products");
+        String sqlWorker = ("Select * from d58pld23fdkd1a.products.products");
 
         try {
             Statement statement = mainJava.connection.createStatement();

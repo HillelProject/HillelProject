@@ -6,9 +6,9 @@ import java.sql.*;
 
 public class MainJava {
 
-    private static final String dbUrl = "jdbc:postgresql://ec2-52-18-116-67.eu-west-1.compute.amazonaws.com:5432/decsc6nn5nc3am";
-    private static final String username = "trjpwbzayodrvw";
-    private static final String password = "f4d1cff1b1f5f581ebc159fb819fb7f36f6659a714d263d95af77c9de2f57153";
+    private static final String dbUrl = "jdbc:postgresql://ec2-54-75-184-144.eu-west-1.compute.amazonaws.com:5432/d58pld23fdkd1a";
+    private static final String username = "psuzbqizgvtxiz";
+    private static final String password = "c68e118fccbd4adfc9d6ebc9838595325368b65791256f9ff5197491cc813672";
  Connection connection;
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
