@@ -1,6 +1,7 @@
 package HillelProject;
 
 public class Products {
+
     private int id;
     private String product_name;
     private double protein;

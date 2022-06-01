@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ChatBot {
+
     private static Map<String, Integer> sex;
     private static Map<String, Integer> dish;
 
