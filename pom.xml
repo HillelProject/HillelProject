@@ -39,8 +39,8 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>com.company.Main</mainClass>
-                            <name>wea_bot</name>
+                            <mainClass>App</mainClass>
+                            <name>workerBot</name>
                         </program>
                     </programs>
                 </configuration>
