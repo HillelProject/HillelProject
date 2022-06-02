@@ -6,11 +6,12 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+// Класс ТелеграмБота, методы для получение и отправки сообщений.
 public class TelegramBot extends TelegramLongPollingBot {
 
     public TelegramBot() {
-        Test.mainJava();
-        Test.products();
+        BotApp.mainJava();
+        BotApp.products();
 
     }
 
@@ -18,7 +19,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message = update.getMessage().getText();
-            String response = Test.process(message);
+            String response = BotApp.process(message);
             sendText(update.getMessage().getChatId(), response);
         }
     }

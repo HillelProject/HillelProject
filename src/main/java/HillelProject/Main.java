@@ -4,7 +4,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
-
+// Класс Main, этот класс активирует телеграмБот, этот же класс запускается в Heroku.
 
 public class Main {
     public static void main(String[] args) {

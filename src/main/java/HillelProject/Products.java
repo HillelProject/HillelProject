@@ -1,5 +1,8 @@
 package HillelProject;
 
+/* Класс Products, создан для переменных из Таблицы Базы Данных, в случае, если продукт будет в базе
+то переменные берут значение этих продуктов.
+*/
 public class Products {
 
     private double calories;

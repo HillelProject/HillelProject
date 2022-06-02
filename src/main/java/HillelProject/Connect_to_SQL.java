@@ -4,7 +4,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 
-public class MainJava {
+/*
+Класс который содержит данные для подключения к SQL
+*/
+
+public class Connect_to_SQL {
 
 
     private static final String dbUrl = "jdbc:postgresql://ec2-54-75-184-144.eu-west-1.compute.amazonaws.com:5432/d58pld23fdkd1a";
@@ -22,7 +26,7 @@ public class MainJava {
         return DriverManager.getConnection(dbUrl, username, password);
     }
 
-    public MainJava() {
+    public Connect_to_SQL() {
         try {
 
             connection = DriverManager.getConnection(dbUrl, username, password);
