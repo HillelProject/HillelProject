@@ -45,7 +45,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>App</mainClass>
+                            <mainClass>HillelProject.App</mainClass>
                             <name>telegramBotsApi</name>
                         </program>
                     </programs>
