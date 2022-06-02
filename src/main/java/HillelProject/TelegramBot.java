@@ -9,14 +9,16 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 public class TelegramBot extends TelegramLongPollingBot {
 
     public TelegramBot() {
-        Test.test();
+        Test.mainJava();
+        Test.products();
+
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message = update.getMessage().getText();
-            String response = ChatBot.process(message);
+            String response = Test.process(message);
             sendText(update.getMessage().getChatId(), response);
         }
     }
