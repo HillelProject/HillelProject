@@ -9,8 +9,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 public class TelegramBot extends TelegramLongPollingBot {
 
     public TelegramBot() {
-        ChatBot.initDish();
-        ChatBot.initSex();
+        Test.test();
     }
 
     @Override

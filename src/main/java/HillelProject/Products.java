@@ -2,20 +2,19 @@ package HillelProject;
 
 public class Products {
 
-    private int id;
+    private double calories;
     private String product_name;
     private double protein;
     private double carbohydrates;
     private double fats;
 
 
-
-    public int getId() {
-        return id;
+    public double getCalories() {
+        return calories;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     public String getProduct_name() {
@@ -56,6 +55,7 @@ public class Products {
                 "Название продукта: " + product_name + "; " +
                         "Белки: " + protein + "; " +
                         "Углеводы: " + carbohydrates + "; " +
-                        "Жиры: " + fats;
+                        "Жиры: " + fats + "; " +
+                        "Калории: " + calories + "; ";
     }
 }

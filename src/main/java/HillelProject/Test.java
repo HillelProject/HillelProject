@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void test(){
 
         Scanner scanner = new Scanner(System.in);
         String product = scanner.nextLine();
@@ -20,7 +20,7 @@ public class Test {
                 Products products = new Products();
                 String result = resultSet.getString(1);
                 if (result.toUpperCase().contains(product.toUpperCase())) {
-                    products.setId(resultSet.getInt(5));
+                    products.setCalories(resultSet.getInt(5));
                     products.setProduct_name(resultSet.getString(1));
                     products.setProtein(resultSet.getDouble(2));
                     products.setCarbohydrates(resultSet.getDouble(3));
