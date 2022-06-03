@@ -71,8 +71,8 @@ public class BotApp {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        return products.toString();
+        }return products.toString();
+
 
     }
 }
