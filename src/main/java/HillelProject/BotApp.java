@@ -41,7 +41,7 @@ public class BotApp {
     public static String process(String message) {
         try {
             // комманда для SQL которая выводит базу данных
-            String sqlWorker = ("Select * from d58pld23fdkd1a.products.products");
+            String sqlWorker = ("select * from d58pld23fdkd1a.products.products where \"Products_Name\" like "+ "\'%"+message+"%\'");
 
             // Создаем подключение к базе данных
             Statement statement = mainJava.connection.createStatement();
