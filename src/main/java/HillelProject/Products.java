@@ -6,6 +6,7 @@ import java.util.Objects;
 то переменные берут значение этих продуктов.
 */
 public class Products {
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
