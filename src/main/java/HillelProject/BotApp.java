@@ -12,7 +12,7 @@ public class BotApp {
     private static Connect_to_SQL mainJava;
     private static Products products;
     public static String result;
-    static String results = "Такого продукта нет";
+
 
 
     // Создает объект класса MainJava
@@ -40,6 +40,7 @@ public class BotApp {
      * и выводит его. В случае если продукта нет, выводит что такого продукта нет.
      **/
     public static String process(String message) {
+        String results = "Такого продукта нет";
 
         try {
             // комманда для SQL которая выводит базу данных
