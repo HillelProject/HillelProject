@@ -12,6 +12,7 @@ public class BotApp {
     private static Connect_to_SQL mainJava;
     private static Products products;
     public static String result;
+    static String results = "Такого продукта нет";
 
 
     // Создает объект класса MainJava
@@ -39,9 +40,10 @@ public class BotApp {
      * и выводит его. В случае если продукта нет, выводит что такого продукта нет.
      **/
     public static String process(String message) {
+
         try {
             // комманда для SQL которая выводит базу данных
-            String sqlWorker = ("select * from d58pld23fdkd1a.products.products where \"Products_Name\" like "+ "\'%"+message+"%\'");
+            String sqlWorker = ("select * from d58pld23fdkd1a.products.products where \"Products_Name\" like " + "\'%" + message + "%\'");
 
             // Создаем подключение к базе данных
             Statement statement = mainJava.connection.createStatement();
@@ -54,6 +56,8 @@ public class BotApp {
             /* Проверяем всю базу данных на наличие продукта, если такой есть,
               то задаем переменные из таблицы в Класс Products
              */
+
+
             while (resultSet.next()) {
 
                 result = resultSet.getString(1);
@@ -63,15 +67,16 @@ public class BotApp {
                     products.setProtein(resultSet.getDouble(2));
                     products.setCarbohydrates(resultSet.getDouble(3));
                     products.setFats(resultSet.getDouble(4));
-                    System.out.println(products.toString());
-                } else if (!resultSet.next() && !result.contains(message))
-                    return ("Такого продукта нет");
+                    results = products.toString();
+
+                }
 
 
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }return products.toString();
+        }
+        return results;
 
 
     }
