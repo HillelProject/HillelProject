@@ -22,19 +22,15 @@ import java.util.List;
 
         }
 
-        @Override
-        public void onUpdateReceived(Update update) {
-            Message message = update.getMessage();
-
-            if (update.hasMessage() && update.getMessage().hasText()) {
-                String messages = update.getMessage().getText();
-                String response = BotApp.process(messages);
-                sendText(message, response);
-            }
+    @Override
+    public void onUpdateReceived(Update update) {
+        Message message = update.getMessage();
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            String messages = update.getMessage().getText();
+            String response = BotApp.process(messages);
+            sendText(message, response);
         }
-
-
-
+    }
 
     private void sendText(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
@@ -79,13 +75,14 @@ import java.util.List;
         }
     }
 
+
     @Override
     public String getBotUsername() {
-        return "HillelProject22";
+        return "Calories_Products_Bot";
     }
 
     @Override
     public String getBotToken() {
-        return "5519023088:AAFNxoT64nY_wYHQdsxAp8oRfFAhS0T7bUE";
+        return "5415629103:AAEcpmdnxC3xqTY_kZOlvqYoelMfB31KUj4";
     }
 }

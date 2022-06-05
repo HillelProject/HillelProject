@@ -19,8 +19,6 @@ public class BotApp {
     public static String result;
 
 
-
-
     // Создает объект класса MainJava
     public static void mainJava() {
         mainJava = new Connect_to_SQL();
@@ -46,7 +44,7 @@ public class BotApp {
      * и выводит его. В случае если продукта нет, выводит что такого продукта нет.
      **/
     public static String process(String message) {
-        List<Products> product=new ArrayList<>();
+        List<Products> product = new ArrayList<>();
         String results = "Такого продукта нет";
 
 
@@ -80,13 +78,12 @@ public class BotApp {
                     product.add(products);
 
                 }
-
-
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }String st = product.stream()
+        }
+        String st = product.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
         return st;
