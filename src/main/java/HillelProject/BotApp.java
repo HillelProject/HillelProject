@@ -3,7 +3,11 @@ package HillelProject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /*
  Класс который содениняет ТелеграмБот с Базой Данных.
@@ -11,7 +15,9 @@ import java.util.Scanner;
 public class BotApp {
     private static Connect_to_SQL mainJava;
     private static Products products;
+
     public static String result;
+
 
 
 
@@ -40,9 +46,12 @@ public class BotApp {
      * и выводит его. В случае если продукта нет, выводит что такого продукта нет.
      **/
     public static String process(String message) {
+        List<Products> product=new ArrayList<>();
         String results = "Такого продукта нет";
 
+
         try {
+
             // комманда для SQL которая выводит базу данных
             String sqlWorker = ("select * from d58pld23fdkd1a.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
 
@@ -51,7 +60,7 @@ public class BotApp {
 
             // Выполняем команду Select для SQL
             ResultSet resultSet = statement.executeQuery(sqlWorker);
-            products();
+
 
 
             /* Проверяем всю базу данных на наличие продукта, если такой есть,
@@ -60,7 +69,7 @@ public class BotApp {
 
 
             while (resultSet.next()) {
-
+                products();
                 result = resultSet.getString(1);
                 if (result.toUpperCase().contains(message.toUpperCase())) {
                     products.setCalories(resultSet.getInt(5));
@@ -68,16 +77,19 @@ public class BotApp {
                     products.setProtein(resultSet.getDouble(2));
                     products.setCarbohydrates(resultSet.getDouble(3));
                     products.setFats(resultSet.getDouble(4));
-                    results = products.toString();
+                    product.add(products);
 
                 }
 
 
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        return results;
+        }String st = product.stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(""));
+        return st;
 
 
     }

@@ -57,10 +57,10 @@ public class Products {
     @Override
     public String toString() {
         return
-                "Название продукта: " + product_name + "; " +
+                "Название продукта: " + product_name + "; " +"\n" +
                         "Белки: " + protein + "; " +
                         "Углеводы: " + carbohydrates + "; " +
                         "Жиры: " + fats + "; " +
-                        "Калории: " + calories + "; ";
+                        "Калории: " + calories + ";" +"\n" + "\n" ;
     }
 }
