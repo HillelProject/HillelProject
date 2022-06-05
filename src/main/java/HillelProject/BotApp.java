@@ -45,7 +45,7 @@ public class BotApp {
      **/
     public static String process(String message) {
         List<Products> product = new ArrayList<>();
-        String results = "Такого продукта нет";
+        String result = "Такого продукта нет";
 
 
         try {
@@ -83,10 +83,10 @@ public class BotApp {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        String st = product.stream()
+         result = product.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
-        return st;
+        return result;
 
 
     }
