@@ -77,15 +77,15 @@ public class BotApp {
                     products.setFats(resultSet.getDouble(4));
                     product.add(products);
 
-                }
+                }result = product.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(""));
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-         result = product.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(""));
+
         return result;
 
 
