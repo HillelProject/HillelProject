@@ -2,39 +2,42 @@
 package HillelProject;
 
 
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.api.objects.Update;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updates.GetUpdates;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // Класс ТелеграмБота, методы для получение и отправки сообщений.
-    public class TelegramBot extends TelegramLongPollingBot {
+public class TelegramBot extends TelegramLongPollingBot {
 
-        public TelegramBot() {
-            BotApp.mainJava();
-            BotApp.products();
+    public TelegramBot() {
+        BotApp.mainJava();
+        BotApp.products();
 
-        }
-
-    @Override
-    public void onUpdateReceived(Update update) {
-        Message message = update.getMessage();
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String messages = update.getMessage().getText();
-            String response = BotApp.process(messages);
-            sendText(message, response);
-        }
     }
+
+        public void onUpdateReceived(Update update) {
+            Message message = update.getMessage();
+            if (update.hasMessage() && update.getMessage().hasText()) {
+                String messages = update.getMessage().getText();
+                String response = BotApp.process(messages);
+                sendText(message, response);
+            }
+        }
+
 
     private void sendText(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
+
 
         // Создаем клавиатуру
         ReplyKeyboardMarkup replyKeyboardMarkup = new
@@ -65,6 +68,7 @@ import java.util.List;
         // и устанавливаем этот список нашей клавиатуре
         replyKeyboardMarkup.setKeyboard(keyboard);
 
+
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
@@ -83,6 +87,8 @@ import java.util.List;
 
     @Override
     public String getBotToken() {
-        return "5415629103:AAEcpmdnxC3xqTY_kZOlvqYoelMfB31KUj4";
+        return "5415629103:AAHIS7AIxqOOU5bAc58nk1I9w-aqCuyYDG0";
     }
+
+
 }
