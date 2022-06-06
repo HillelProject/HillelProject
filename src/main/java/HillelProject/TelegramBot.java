@@ -24,15 +24,29 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
-        public void onUpdateReceived(Update update) {
-            Message message = update.getMessage();
-            if (update.hasMessage() && update.getMessage().hasText()) {
+    public void onUpdateReceived(Update update) {
+        Message message = update.getMessage();
+        if (message != null && message.hasText()) {
+
+            if (message.getText().equals("Рецепт Дня")) {
+                String messages = update.getMessage().getText();
+                String response = specialOfTheDay.process("Рецепт Дня");
+                sendText(message, response);
+            }
+
+            if (message.getText().equals("Калории продуктов")) {
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
                 sendText(message, response);
-            }
-        }
 
+            }
+
+
+
+
+
+        }
+    }
 
     private void sendText(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
