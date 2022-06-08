@@ -2,6 +2,7 @@ package HillelProject;
 
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -23,78 +24,135 @@ public class TelegramBot extends TelegramLongPollingBot {
     public TelegramBot() {
         BotApp.mainJava();
         BotApp.products();
-
-
     }
 
-    HashMap<String, String> hashMap = new HashMap<>();
+    HashMap<String, String> hashForProducts = new HashMap<>();
+    HashMap<String, String> hashForIndividualCaloriesCalculation = new HashMap<>();
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
 
-            if (message.getText().equals("/start")){
+            //Команда "/Start"
+            if (message.getText().equals("/start")) {
                 sendText(message, "Я работаю ёпта, выбирай из менюшки что надо");
             }
 
+            // Команда Рецепт Дня
             if (message.getText().equals("Рецепт Дня")) {
                 String messages = update.getMessage().getText();
                 String response = specialOfTheDay.process(messages);
                 sendText(message, response);
-                hashMap.clear();
-
+                hashForProducts.clear();
 
             }
 
-            if(message.getText()!= null && hashMap.containsKey("1") && message.getText().equals("Калории продуктов")){
+            // Если несколько раз нажать команду "Калории продуктов".
+            if (message.getText() != null && hashForProducts.containsKey("1") && message.getText().equals("Калории продуктов")) {
                 sendText(message, "Блин, да понял я уже, давай вводи продукт");
-                hashMap.clear();
+                hashForProducts.clear();
             }
 
-
-            if (message.getText()!= null && hashMap.containsKey("1")&& !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
+            // Выводит данные из базы данных после ввода продукта
+            if (message.getText() != null && hashForProducts.containsKey("1") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
                 inlineButton2(message, response);
 
             }
 
-            if (message.getText().equals("Калории продуктов") && !hashMap.containsKey("1")){
-                String messages = update.getMessage().getText();
-                String response = BotApp.process(messages);
+            // Реакция на нажатие кнопки "Калории продуктов"
+            if (message.getText().equals("Калории продуктов") && !hashForProducts.containsKey("1")) {
                 inlineButton1(message, "Введите название продукта: ");
-                hashMap.put("1", "Калории продуктов");
+                hashForProducts.put("1", "Калории продуктов");
             }
 
+            if (message.getText() != null && IndividualData.hashForIndividualCaloriesCalculation.containsKey("4") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
+                inlineButton4(message, "Выберите степень физической активности из списка:");
+            }
 
+            if (message.getText() != null && IndividualData.hashForIndividualCaloriesCalculation.containsKey("3") && !IndividualData.hashForIndividualCaloriesCalculation.containsKey("4")&& !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
+                inlineButton3(message, "Выберите Ваш пол из списка:");
+                IndividualData.hashForIndividualCaloriesCalculation.put("4", message.getText());
+            }
 
+            if (message.getText() != null && IndividualData.hashForIndividualCaloriesCalculation.containsKey("2")&& !IndividualData.hashForIndividualCaloriesCalculation.containsKey("3")&& !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
+                inlineButton1(message, "Введите свой возраст(например: 25)");
+                IndividualData.hashForIndividualCaloriesCalculation.put("3", message.getText());
 
+            }
 
+            if (message.getText() != null && IndividualData.hashForIndividualCaloriesCalculation.containsKey("1") && !IndividualData.hashForIndividualCaloriesCalculation.containsKey("2") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
+                inlineButton1(message, "Введите свой вес(например: 50): ");
+                IndividualData.hashForIndividualCaloriesCalculation.put("2", message.getText());
+
+            }
+
+            if (message.getText().equals("Индивидуальный счетчик калорий")) {
+                String messages = update.getMessage().getText();
+                String response = specialOfTheDay.process(messages);
+                inlineButton1(message, "Индивидуальный расчет суточной нормы калорий.\nВведите свой рост (например: 175): ");
+                IndividualData.hashForIndividualCaloriesCalculation.put("1",message.getText());
+
+            }
+
+            // Реакция на Inline меню
         } else if (update.hasCallbackQuery()) {
             Message message1 = update.getCallbackQuery().getMessage();
             CallbackQuery callbackQuery = update.getCallbackQuery();
             String data = callbackQuery.getData();
             SendMessage sendMessage = new SendMessage();
+            sendMessage.setParseMode(ParseMode.MARKDOWN);
             sendMessage.setChatId(String.valueOf(message1.getChatId()));
-            String messages = String.valueOf(update.getCallbackQuery().getMessage());
 
-            if (data.equals("готово")) {
-                sendMessage.setText(BotApp.process(messages));
+            if (data.equals("Мужской")) {
+                IndividualData.hashForIndividualCaloriesCalculation.put("5","88.36");
+                inlineButton4(message1, "Выберите степень физической активности из списка:");
 
 
-            } else {sendMessage.setText("ок");
-                hashMap.clear();}
+
+
+
+            } else if(data.equals("Женский")){
+                IndividualData.hashForIndividualCaloriesCalculation.put("5","447.6");
+                inlineButton4(message1, "Выберите степень физической активности из списка:");
+
+
+            }
+            else if (data.equals("Нет физических нагрузок")) {
+                sendMessage.setText(IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+            }
+
+            else if (data.equals("Нагрузки 1–3 раза в неделю")) {
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,375");
+                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+            }
+            else if (data.equals("Нагрузки 3–5 раз в неделю")) {
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,55");
+                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+            }
+            else if (data.equals("Нагрузки 6–7 раз в неделю")) {
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,725");
+                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+            }
+            else if (data.equals("Ежедневно более одной тренировки")) {
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,9");
+                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+            }
+
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
 
             }
-
         }
+
     }
 
 
+
+    // Метод отправки сообщения
     private void sendText(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -138,6 +196,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
 
+    // Меню при отправки сообщения "Калории продуктов"
     private void inlineButton1(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -165,7 +224,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
-    private void inlineButton2(Message message, String text) {
+
+    // Меню выхода из перечисления калории для продуктов
+    void inlineButton2(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         //Inline KeyBoard
@@ -193,6 +254,101 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    void inlineButton3(Message message, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        //Inline KeyBoard
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+
+        List<List<InlineKeyboardButton>> inlineButtons = new ArrayList<>();
+        List<InlineKeyboardButton> inlineKeyboardButtons = new ArrayList<>();
+        InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
+        InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
+        inlineKeyboardButton1.setText("Мужской");
+        inlineKeyboardButton1.setCallbackData("Мужской");
+        inlineKeyboardButton2.setText("Женский");
+        inlineKeyboardButton2.setCallbackData("Женский");
+        inlineKeyboardButtons.add(inlineKeyboardButton1);
+        inlineKeyboardButtons.add(inlineKeyboardButton2);
+        inlineButtons.add(inlineKeyboardButtons);
+        inlineKeyboardMarkup.setKeyboard(inlineButtons);
+
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setReplyToMessageId(message.getMessageId());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void inlineButton4(Message message, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        //Inline KeyBoard
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+
+        List<List<InlineKeyboardButton>> inlineButtons = new ArrayList<>();
+        List<InlineKeyboardButton> inlineKeyboardButtons = new ArrayList<>();
+        InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
+        InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
+        InlineKeyboardButton inlineKeyboardButton3 = new InlineKeyboardButton();
+        InlineKeyboardButton inlineKeyboardButton4 = new InlineKeyboardButton();
+        InlineKeyboardButton inlineKeyboardButton5 = new InlineKeyboardButton();
+
+        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
+        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
+        List<InlineKeyboardButton> keyboardButtonsRow3 = new ArrayList<>();
+
+        keyboardButtonsRow1.add(inlineKeyboardButton1);
+        keyboardButtonsRow1.add(inlineKeyboardButton2);
+        keyboardButtonsRow2.add(inlineKeyboardButton3);
+        keyboardButtonsRow2.add(inlineKeyboardButton4);
+        keyboardButtonsRow3.add(inlineKeyboardButton5);
+
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>(); //Создаём ряд
+        rowList.add(keyboardButtonsRow1);
+        rowList.add(keyboardButtonsRow2);
+        rowList.add(keyboardButtonsRow3);
+
+
+        inlineKeyboardButton1.setText("Нет физических нагрузок");
+        inlineKeyboardButton1.setCallbackData("Нет физических нагрузок");
+        inlineKeyboardButton2.setText("Нагрузки 1–3 раза в неделю");
+        inlineKeyboardButton2.setCallbackData("Нагрузки 1–3 раза в неделю");
+        inlineKeyboardButton3.setText("Нагрузки 3–5 раз в неделю");
+        inlineKeyboardButton3.setCallbackData("Нагрузки 3–5 раз в неделю");
+        inlineKeyboardButton4.setText("Нагрузки 6–7 раз в неделю");
+        inlineKeyboardButton4.setCallbackData("Нагрузки 6–7 раз в неделю");
+        inlineKeyboardButton5.setText("Ежедневно более одной тренировки");
+        inlineKeyboardButton5.setCallbackData("Ежедневно более одной тренировки");
+
+        inlineKeyboardButtons.add(inlineKeyboardButton1);
+        inlineKeyboardButtons.add(inlineKeyboardButton2);
+        inlineKeyboardButtons.add(inlineKeyboardButton3);
+        inlineKeyboardButtons.add(inlineKeyboardButton4);
+        inlineKeyboardButtons.add(inlineKeyboardButton5);
+        inlineButtons.add(inlineKeyboardButtons);
+        inlineKeyboardMarkup.setKeyboard(rowList);
+
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setReplyToMessageId(message.getMessageId());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public String getBotUsername() {
@@ -203,6 +359,4 @@ public class TelegramBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return "5415629103:AAHIS7AIxqOOU5bAc58nk1I9w-aqCuyYDG0";
     }
-
-
 }
