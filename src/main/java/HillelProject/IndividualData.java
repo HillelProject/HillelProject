@@ -1,15 +1,18 @@
 package HillelProject;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IndividualData {
 
     //private double calorieExpenditurePerDay;  //трата калорий в день
 
-
-
-
     public static String individualCaloriesCalculation(HashMap<String, String> hashMap) {
+
          double womanHeight = 3.1;
           double manHeight = 4.8;
           double manWeight = 13.4;
