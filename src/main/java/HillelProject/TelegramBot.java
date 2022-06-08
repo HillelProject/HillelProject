@@ -120,24 +120,25 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             }
             else if (data.equals("Нет физических нагрузок")) {
-                sendMessage.setText(IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1.2");
+                sendMessage.setText(IndividualData.individualCaloriesCalculation(IndividualData.hashForIndividualCaloriesCalculation));
             }
 
             else if (data.equals("Нагрузки 1–3 раза в неделю")) {
-                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,375");
-                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1.375");
+                sendMessage.setText(IndividualData.individualCaloriesCalculation(IndividualData.hashForIndividualCaloriesCalculation));
             }
             else if (data.equals("Нагрузки 3–5 раз в неделю")) {
-                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,55");
-                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1.55");
+                sendMessage.setText(IndividualData.individualCaloriesCalculation(IndividualData.hashForIndividualCaloriesCalculation));
             }
             else if (data.equals("Нагрузки 6–7 раз в неделю")) {
-                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,725");
-                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1.725");
+                sendMessage.setText(IndividualData.individualCaloriesCalculation(IndividualData.hashForIndividualCaloriesCalculation));
             }
             else if (data.equals("Ежедневно более одной тренировки")) {
-                IndividualData.hashForIndividualCaloriesCalculation.put("6","1,9");
-                sendText(message1,IndividualData.individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
+                IndividualData.hashForIndividualCaloriesCalculation.put("6","1.9");
+                sendMessage.setText(IndividualData.individualCaloriesCalculation(IndividualData.hashForIndividualCaloriesCalculation));
             }
 
             try {

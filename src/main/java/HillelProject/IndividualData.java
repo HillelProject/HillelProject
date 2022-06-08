@@ -14,27 +14,19 @@ public class IndividualData {
 
     static HashMap<String, String> hashForIndividualCaloriesCalculation = new HashMap<>();
 
-
     public static String individualCaloriesCalculation(HashMap<String, String> hashMap) {
-        double result=0;
-        if (Integer.parseInt(hashMap.get("5"))==88.36) {
-             result = Integer.parseInt(hashMap.get("5")) + (manWeight * Integer.parseInt(hashMap.get("3")))+(manHeight*Integer.parseInt(hashMap.get("2")))
-                    -(manYear*Integer.parseInt(hashMap.get("4")))* Integer.parseInt(hashMap.get("6"));
+        double result=1;
+        if (Double.parseDouble(hashMap.get("5"))==88.36) {
+            result =Double.parseDouble(hashMap.get("6"))*( Double.parseDouble(hashMap.get("5")) + (manWeight * Double.parseDouble(hashMap.get("3")))+(manHeight*Double.parseDouble(hashMap.get("2")))
+                    -(manYear*Integer.parseInt(hashMap.get("4"))));
         }
-        else if (hashMap.get("5").equals("447.6")){
-             result = (Integer.parseInt(hashMap.get("5")) + (womanWeight * Integer.parseInt(hashMap.get("3")))+(womanHeight*Integer.parseInt(hashMap.get("2")))
-                    -(womanYear*Integer.parseInt(hashMap.get("4")))) * Integer.parseInt(hashMap.get("6"));
+        else if (Double.parseDouble(hashMap.get("5"))==447.6){
+            result = Double.parseDouble(hashMap.get("6"))*((Double.parseDouble(hashMap.get("5")) + (womanWeight * Double.parseDouble(hashMap.get("3")))+(womanHeight*Double.parseDouble(hashMap.get("2")))
+                    -(womanYear*Double.parseDouble(hashMap.get("4")))));
 
-        }return Double.toString(result);
+        }
+        return Double.toString(result);
     }
 
-    public static void main(String[] args) {
-        hashForIndividualCaloriesCalculation.put("1","20");
-        hashForIndividualCaloriesCalculation.put("2","20");
-        hashForIndividualCaloriesCalculation.put("3","20");
-        hashForIndividualCaloriesCalculation.put("4","20");
-        hashForIndividualCaloriesCalculation.put("5","447.6");
-        hashForIndividualCaloriesCalculation.put("6","20");
-        System.out.println(individualCaloriesCalculation(hashForIndividualCaloriesCalculation));
-    }
+
 }
