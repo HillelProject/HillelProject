@@ -55,14 +55,14 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (message.getText()!= null && hashMap.containsKey("1")&& !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
-                sendText(message, response);
-                hashMap.clear();
+                inlineButton2(message, response);
+
             }
 
             if (message.getText().equals("Калории продуктов") && !hashMap.containsKey("1")){
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
-                inlineButton(message, "Введите продукт");
+                inlineButton1(message, "Введите название продукта: ");
                 hashMap.put("1", "Калории продуктов");
             }
 
@@ -82,7 +82,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 sendMessage.setText(BotApp.process(messages));
 
 
-            } else sendMessage.setText("ок");
+            } else {sendMessage.setText("ок");
+                hashMap.clear();}
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
@@ -137,7 +138,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
 
-    private void inlineButton(Message message, String text) {
+    private void inlineButton1(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         //Inline KeyBoard
@@ -148,6 +149,33 @@ public class TelegramBot extends TelegramLongPollingBot {
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
         inlineKeyboardButton.setText("Cancel");
         inlineKeyboardButton.setCallbackData("Cancel");
+        inlineKeyboardButtons.add(inlineKeyboardButton);
+        inlineButtons.add(inlineKeyboardButtons);
+        inlineKeyboardMarkup.setKeyboard(inlineButtons);
+
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setReplyToMessageId(message.getMessageId());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+    private void inlineButton2(Message message, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        //Inline KeyBoard
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+
+        List<List<InlineKeyboardButton>> inlineButtons = new ArrayList<>();
+        List<InlineKeyboardButton> inlineKeyboardButtons = new ArrayList<>();
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setText("Хватит");
+        inlineKeyboardButton.setCallbackData("Хватит");
         inlineKeyboardButtons.add(inlineKeyboardButton);
         inlineButtons.add(inlineKeyboardButtons);
         inlineKeyboardMarkup.setKeyboard(inlineButtons);
