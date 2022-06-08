@@ -41,22 +41,32 @@ public class TelegramBot extends TelegramLongPollingBot {
                 String messages = update.getMessage().getText();
                 String response = specialOfTheDay.process(messages);
                 sendText(message, response);
+                hashMap.clear();
 
 
             }
-            if (message.getText()!= null && hashMap.containsKey("1")) {
+
+            if(message.getText()!= null && hashMap.containsKey("1") && message.getText().equals("Калории продуктов")){
+                sendText(message, "Блин, да понял я уже, давай вводи продукт");
+                hashMap.clear();
+            }
+
+
+            if (message.getText()!= null && hashMap.containsKey("1")&& !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")){
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
                 sendText(message, response);
                 hashMap.clear();
             }
 
-            if (message.getText().equals("Калории продуктов")){
+            if (message.getText().equals("Калории продуктов") && !hashMap.containsKey("1")){
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
                 inlineButton(message, "Введите продукт");
                 hashMap.put("1", "Калории продуктов");
             }
+
+
 
 
 
