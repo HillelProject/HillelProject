@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 // Класс ТелеграмБота, методы для получение и отправки сообщений.
@@ -23,40 +24,55 @@ public class TelegramBot extends TelegramLongPollingBot {
         BotApp.mainJava();
         BotApp.products();
 
+
     }
+
+    HashMap<String, String> hashMap = new HashMap<>();
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
 
+            if (message.getText().equals("/start")){
+                sendText(message, "Я работаю ёпта, выбирай из менюшки что надо");
+            }
+
             if (message.getText().equals("Рецепт Дня")) {
                 String messages = update.getMessage().getText();
                 String response = specialOfTheDay.process(messages);
                 sendText(message, response);
+
+
+            }
+            if (message.getText()!= null && hashMap.containsKey("1")) {
+                String messages = update.getMessage().getText();
+                String response = BotApp.process(messages);
+                sendText(message, response);
+                hashMap.clear();
             }
 
-            if (message.getText().equals("Калории продуктов")) {
+            if (message.getText().equals("Калории продуктов")){
                 String messages = update.getMessage().getText();
                 String response = BotApp.process(messages);
                 inlineButton(message, "Введите продукт");
-
+                hashMap.put("1", "Калории продуктов");
             }
+
+
+
         } else if (update.hasCallbackQuery()) {
             Message message1 = update.getCallbackQuery().getMessage();
             CallbackQuery callbackQuery = update.getCallbackQuery();
             String data = callbackQuery.getData();
-            String data1 = String.valueOf(callbackQuery.getMessage());
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(String.valueOf(message1.getChatId()));
             String messages = String.valueOf(update.getCallbackQuery().getMessage());
-            String response = BotApp.process(messages);
-            if (data1!=null) {
-                String messages1 = update.getMessage().getText();
-                String response1 = specialOfTheDay.process(messages);
-                sendText(message1, response1);
-            } else {
-                sendMessage.setText("Окей");
-            }
+
+            if (data.equals("готово")) {
+                sendMessage.setText(BotApp.process(messages));
+
+
+            } else sendMessage.setText("ок");
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {

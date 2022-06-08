@@ -18,6 +18,7 @@ public class BotApp {
     public static String result;
 
 
+
     // Создает объект класса MainJava
     public static void mainJava() {
         mainJava = new Connect_to_SQL();
@@ -35,6 +36,7 @@ public class BotApp {
         mainJava();
         String botAnswer = process(product);
         System.out.println(botAnswer);
+
     }
 
     /**
