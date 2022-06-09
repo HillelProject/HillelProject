@@ -48,6 +48,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 String response = specialOfTheDay.process(messages);
                 sendText(message, response);
                 hashForProducts.clear();
+                hashForIndividualCaloriesCalculation.clear();
 
             }
 
@@ -120,11 +121,15 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (data.equals("Хватит")){
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 sendMessage.setText("Хорошо");
+                hashForIndividualCaloriesCalculation.clear();
+                hashForProducts.clear();
 
             }
             if (data.equals("Cancel")){
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 sendMessage.setText("Хорошо");
+                hashForIndividualCaloriesCalculation.clear();
+                hashForProducts.clear();
 
             }
 
