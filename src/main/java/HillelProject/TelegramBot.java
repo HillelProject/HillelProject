@@ -120,11 +120,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (data.equals("Хватит")){
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 sendMessage.setText("Хорошо");
+                hashForProducts.clear();
 
             }
             if (data.equals("Cancel")){
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 sendMessage.setText("Хорошо");
+                hashForProducts.clear();
 
             }
 
