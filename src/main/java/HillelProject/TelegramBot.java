@@ -89,7 +89,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой возраст(например: 25): ");
-                } else if (Integer.parseInt(message.getText()) < 150 && Integer.parseInt(message.getText()) > 0) {
+                } else if (Double.parseDouble(message.getText()) < 150 && Double.parseDouble(message.getText()) > 0) {
                     inlineButton3(message, "Выберите Ваш пол из списка:");
                     hashForIndividualCaloriesCalculation.put("4", message.getText());
                 } else {
@@ -101,7 +101,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой вес(например: 50): ");
-                } else if (Integer.parseInt(message.getText()) < 250 && Integer.parseInt(message.getText()) > 0) {
+                } else if (Double.parseDouble(message.getText()) < 250 && Double.parseDouble(message.getText()) > 0) {
                     inlineButton1(message, "Введите свой возраст(например: 25)");
                     hashForIndividualCaloriesCalculation.put("3", message.getText());
                 } else {
@@ -114,8 +114,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("1") && !hashForIndividualCaloriesCalculation.containsKey("2") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
-                    inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой возраст(например: 175): ");
-                } else if (Integer.parseInt(message.getText()) < 250 && Integer.parseInt(message.getText()) > 0) {
+                    inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой рост(например: 175): ");
+                } else if (Double.parseDouble(message.getText()) < 250 && Double.parseDouble(message.getText()) > 0) {
                     hashForIndividualCaloriesCalculation.put("2", message.getText());
                     inlineButton1(message, "Введите свой вес(например: 50): ");
                 } else {

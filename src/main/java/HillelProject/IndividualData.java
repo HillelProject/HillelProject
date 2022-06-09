@@ -22,7 +22,7 @@ public class IndividualData {
         double result=1;
         if (Double.parseDouble(hashMap.get("5"))==88.36) {
             result =Double.parseDouble(hashMap.get("6"))*( Double.parseDouble(hashMap.get("5")) + (manWeight * Double.parseDouble(hashMap.get("3")))+(manHeight*Double.parseDouble(hashMap.get("2")))
-                    -(manYear*Integer.parseInt(hashMap.get("4"))));
+                    -(manYear*Double.parseDouble(hashMap.get("4"))));
         }
         else if (Double.parseDouble(hashMap.get("5"))==447.6){
             result = Double.parseDouble(hashMap.get("6"))*((Double.parseDouble(hashMap.get("5")) + (womanWeight * Double.parseDouble(hashMap.get("3")))+(womanHeight*Double.parseDouble(hashMap.get("2")))
