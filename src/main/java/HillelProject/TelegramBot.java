@@ -82,9 +82,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("4") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
                 message.getChatId();
-                inlineButton4(message, "Выберите степень физической активности из списка:");
-            }
+                CallbackQuery callbackQuery = update.getCallbackQuery();
+                String data = callbackQuery.getData();
+                if (data.equals("Мужской") || data.equals("Женский")) {
+                    inlineButton4(message, "Выберите степень физической активности из списка:");
+                } else  sendText(message, "Выберите Ваш пол из списка:");
 
+            }
             if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("3") && !hashForIndividualCaloriesCalculation.containsKey("4") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
