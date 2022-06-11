@@ -1,4 +1,4 @@
-package HillelProject;
+package HillelProject.Methods;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;

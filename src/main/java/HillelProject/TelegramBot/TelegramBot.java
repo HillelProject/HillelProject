@@ -1,5 +1,8 @@
-package HillelProject;
+package HillelProject.TelegramBot;
 
+import HillelProject.Methods.IndividualData;
+import HillelProject.Methods.specialOfTheDay;
+import HillelProject.TelegramBot.BotApp;
 import org.springframework.util.StringUtils;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
