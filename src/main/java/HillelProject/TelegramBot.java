@@ -88,6 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     inlineButton4(message, "Выберите степень физической активности из списка:");
                 } else  sendText(message, "Выберите Ваш пол из списка:");
 
+
             }
             if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("3") && !hashForIndividualCaloriesCalculation.containsKey("4") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
                 message.getChatId();
