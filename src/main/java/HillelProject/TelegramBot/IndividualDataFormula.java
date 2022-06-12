@@ -6,10 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class IndividualDataFormula2 {
+public class IndividualDataFormula {
 
     private static Connect_to_SQL mainJava;
-    public static String result;
 
 
     // Создает объект класса MainJava
@@ -17,17 +16,15 @@ public class IndividualDataFormula2 {
         mainJava = new Connect_to_SQL();
     }
 
-    public static void main(String[] args) throws SQLException {
 
+    public static void main(String[] args) {
         mainJava();
 
-
-        System.out.println(IndividualDataFormula2.individualCaloriesCalculation("547869530"));
-
+        deleteIndividualCaloriesCalculation("547869530");
     }
 
+    // Расчет индивидуальных калорий взятых из базы данных
     public static String individualCaloriesCalculation(String chatId) {
-
 
         double womanHeight = 3.1;
         double manHeight = 4.8;
@@ -35,7 +32,7 @@ public class IndividualDataFormula2 {
         double womanWeight = 9.2;
         double manYear = 5.7;
         double womanYear = 4.3;
-        double result=1;
+        double result = 1;
 
 
         try {
@@ -48,7 +45,7 @@ public class IndividualDataFormula2 {
             String activity = ("select information from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=6");
             // Создаем подключение к базе данных
             Statement statementHeight = mainJava.connection.createStatement();
-            Statement statementWeight= mainJava.connection.createStatement();
+            Statement statementWeight = mainJava.connection.createStatement();
             Statement statementAge = mainJava.connection.createStatement();
             Statement statementSex = mainJava.connection.createStatement();
             Statement statementActivity = mainJava.connection.createStatement();
@@ -67,19 +64,33 @@ public class IndividualDataFormula2 {
             resultSetWeight.next();
 
 
-
-
-            if (Double.parseDouble(resultSetSex.getString(1))==(88.36)) {
+            if (Double.parseDouble(resultSetSex.getString(1)) == (88.36)) {
                 result = Double.parseDouble(resultSetActivity.getString(1)) * ((Double.parseDouble(resultSetSex.getString(1)) + (manWeight * Double.parseDouble(resultSetWeight.getString(1))) + (manHeight * Double.parseDouble(resultSetHeight.getString(1)))
                         - (manYear * Double.parseDouble(resultSetAge.getString(1)))));
-            } else if (Double.parseDouble(resultSetSex.getString(1))==(447.6)) {
-                result = Double.parseDouble(resultSetActivity.toString()) * ((Double.parseDouble(resultSetSex.getString(1)) + (womanWeight * Double.parseDouble(resultSetWeight.getString(1))) + (womanHeight * Double.parseDouble(resultSetHeight.getString(1)))
+            } else if (Double.parseDouble(resultSetSex.getString(1)) == (447.6)) {
+                result = Double.parseDouble(resultSetActivity.getString(1)) * ((Double.parseDouble(resultSetSex.getString(1)) + (womanWeight * Double.parseDouble(resultSetWeight.getString(1))) + (womanHeight * Double.parseDouble(resultSetHeight.getString(1)))
                         - (womanYear * Double.parseDouble(resultSetAge.getString(1)))));
 
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Double.toString(result);
+        }
+        return Double.toString(result);
     }
+
+    // Удаляет из базы данных информацию о пользователе
+    public static void deleteIndividualCaloriesCalculation(String chatId) {
+        try {
+
+            String deleteInfo = ("delete from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId);
+            Statement statement = mainJava.connection.createStatement();
+            int resultSetHeight = statement.executeUpdate(deleteInfo);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
