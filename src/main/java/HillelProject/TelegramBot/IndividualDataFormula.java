@@ -19,7 +19,7 @@ public class IndividualDataFormula {
 
     public static void main(String[] args) {
         mainJava();
-        System.out.println(checkIndividualCaloriesCalculation("547869530","4"));
+        System.out.println(checkIndividualCaloriesCalculation("547869530", "4"));
     }
 
     // Расчет индивидуальных калорий взятых из базы данных
@@ -71,6 +71,7 @@ public class IndividualDataFormula {
                         - (womanYear * Double.parseDouble(resultSetAge.getString(1)))));
 
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,18 +94,20 @@ public class IndividualDataFormula {
 
     public static boolean checkIndividualCaloriesCalculation(String chatId, String number) {
         try {
-            boolean result=false;
+            boolean result = false;
             String numbers = ("select number from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId);
 
             Statement statement = mainJava.connection.createStatement();
             ResultSet resultSetHeight = statement.executeQuery(numbers);
-           while (resultSetHeight.next()) {
-               if (resultSetHeight.getString(1).equals(number)) {
-                   result = true;
-               }
+            while (resultSetHeight.next()) {
+                if (resultSetHeight.getString(1).equals(number)) {
+                    result = true;
+                }
 
 
-           }return result;
+            }
+            return result;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
