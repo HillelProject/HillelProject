@@ -1,4 +1,6 @@
-package HillelProject;
+package HillelProject.TelegramBot;
+
+import HillelProject.Methods.Products;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

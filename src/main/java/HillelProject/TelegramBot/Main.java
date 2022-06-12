@@ -1,10 +1,11 @@
-package HillelProject;
+package HillelProject.TelegramBot;
 
 
 
 // Класс Main, этот класс активирует телеграмБот, этот же класс запускается в Heroku.
 
 
+import HillelProject.TelegramBot.TelegramBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;

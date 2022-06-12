@@ -1,4 +1,4 @@
-package HillelProject;
+package HillelProject.Methods;
 
 import java.util.ArrayList;
 import java.util.List;

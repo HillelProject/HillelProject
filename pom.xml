@@ -72,7 +72,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>HillelProject.Main</mainClass>
+                            <mainClass>HillelProject.TelegramBot.Main</mainClass>
                             <name>workerBot</name>
                         </program>
                     </programs>
