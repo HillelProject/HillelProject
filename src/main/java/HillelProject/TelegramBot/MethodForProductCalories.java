@@ -1,6 +1,6 @@
 package HillelProject.TelegramBot;
 
-import HillelProject.Methods.Products;
+import HillelProject.Methods.ProductsClass;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 /*
  Класс который содениняет ТелеграмБот с Базой Данных.
 */
-public class BotApp {
+public class MethodForProductCalories {
     private static Connect_to_SQL mainJava;
-    private static Products products;
+    private static ProductsClass products;
 
     public static String result;
 
@@ -28,7 +28,7 @@ public class BotApp {
 
     // Создает объект класса Products
     public static void products() {
-        products = new Products();
+        products = new ProductsClass();
     }
 
     public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class BotApp {
      * и выводит его. В случае если продукта нет, выводит что такого продукта нет.
      **/
     public static String process(String message) {
-        List<Products> product = new ArrayList<>();
+        List<ProductsClass> product = new ArrayList<>();
         String result = "Такого продукта нет";
 
 

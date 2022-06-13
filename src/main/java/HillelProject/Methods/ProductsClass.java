@@ -1,11 +1,9 @@
 package HillelProject.Methods;
 
-import java.util.Objects;
-
 /* Класс Products, создан для переменных из Таблицы Базы Данных, в случае, если продукт будет в базе
 то переменные берут значение этих продуктов.
 */
-public class Products {
+public class ProductsClass {
 
     private double calories;
     private String product_name;

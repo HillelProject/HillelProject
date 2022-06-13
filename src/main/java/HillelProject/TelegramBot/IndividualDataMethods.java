@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class IndividualDataFormula {
+public class IndividualDataMethods {
 
     private static Connect_to_SQL mainJava;
 
