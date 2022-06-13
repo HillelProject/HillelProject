@@ -260,13 +260,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
         keyboardFirstRow.add("Рецепт Дня");
-        keyboardFirstRow.add("Индивидуальный счетчик калорий");
+        keyboardFirstRow.add("Индивидуальный\nсчетчик калорий");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Добавляем кнопки во вторую строчку клавиатуры
         keyboardSecondRow.add("Калории продуктов");
-        keyboardSecondRow.add("Индивидуальный водный баланс");
+        keyboardSecondRow.add("Индивидуальный\nводный баланс");
 
         // Добавляем все строчки клавиатуры в список
         keyboard.add(keyboardFirstRow);
