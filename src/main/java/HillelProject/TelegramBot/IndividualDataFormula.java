@@ -92,6 +92,7 @@ public class IndividualDataFormula {
         }
     }
 
+    //Проверяет наличие пунктов в базе данных для следующего шага в цикле
     public static boolean checkIndividualCaloriesCalculation(String chatId, String number) {
         try {
             boolean result = false;
