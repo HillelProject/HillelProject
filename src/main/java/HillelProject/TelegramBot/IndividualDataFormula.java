@@ -63,6 +63,22 @@ public class IndividualDataFormula {
             resultSetWeight.next();
 
 
+            // формуда расчета индивидуальный калорий для мужчины и женщины
+
+            /*
+               для мужчин: BMR = 88.36 + (13.4 x вес, кг) + (4.8 х рост, см) – (5.7 х возраст, лет)
+               для женщин: BMR = 447.6 + (9.2 x вес, кг) + (3.1 х рост, cм) – (4.3 х возраст, лет)
+
+               Коэффициенты активности при расчете нормы калорий:
+
+               Минимальный уровень активности — 1.2
+               Низкий уровень активности — 1.375
+               Средний уровень активности — 1.55
+               Высокий уровень — 1.725
+               Очень высокий —  1.9
+
+               Норма калорий = BMR x Уровень активности
+             */
             if (Double.parseDouble(resultSetSex.getString(1)) == (88.36)) {
                 result = Double.parseDouble(resultSetActivity.getString(1)) * ((Double.parseDouble(resultSetSex.getString(1)) + (manWeight * Double.parseDouble(resultSetWeight.getString(1))) + (manHeight * Double.parseDouble(resultSetHeight.getString(1)))
                         - (manYear * Double.parseDouble(resultSetAge.getString(1)))));
