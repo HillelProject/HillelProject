@@ -77,7 +77,7 @@ public class MethodForProductCalories {
                     products.setCarbohydrates(resultSet.getDouble(3));
                     products.setFats(resultSet.getDouble(4));
                     product.add(products);
-                    productes.add(resultSet.getString(1));
+
 
 
                 }

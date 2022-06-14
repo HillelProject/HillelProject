@@ -76,7 +76,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                     String messages = update.getMessage().getText();
                     String response = MethodForProductCalories.process(messages);
                     inlineButton2(message, response);}
-
             }
 
             // Реакция на нажатие кнопки "Калории продуктов"
