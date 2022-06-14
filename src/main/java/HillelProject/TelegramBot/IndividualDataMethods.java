@@ -37,11 +37,11 @@ public class IndividualDataMethods {
         try {
 
             // комманда для SQL которая выводит базу данных
-            String height = ("select information from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=2");
-            String weight = ("select information from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=3");
-            String age = ("select information from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=4");
-            String sex = ("select information from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=5");
-            String activity = ("select information from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=6");
+            String height = ("select information from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=2");
+            String weight = ("select information from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=3");
+            String age = ("select information from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=4");
+            String sex = ("select information from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=5");
+            String activity = ("select information from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId + " and number=6");
             // Создаем подключение к базе данных
             Statement statementHeight = mainJava.connection.createStatement();
             Statement statementWeight = mainJava.connection.createStatement();
@@ -98,7 +98,7 @@ public class IndividualDataMethods {
     public static void deleteIndividualCaloriesCalculation(String chatId) {
         try {
 
-            String deleteInfo = ("delete from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId);
+            String deleteInfo = ("delete from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId);
             Statement statement = mainJava.connection.createStatement();
             int resultSetHeight = statement.executeUpdate(deleteInfo);
 
@@ -112,7 +112,7 @@ public class IndividualDataMethods {
     public static boolean checkIndividualCaloriesCalculation(String chatId, String number) {
         try {
             boolean result = false;
-            String numbers = ("select number from d58pld23fdkd1a.products.\"individualCalories\" where \"chatId\"=" + chatId);
+            String numbers = ("select number from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId);
 
             Statement statement = mainJava.connection.createStatement();
             ResultSet resultSetHeight = statement.executeQuery(numbers);

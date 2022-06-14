@@ -66,10 +66,16 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             // Выводит данные продуктов из базы данных после ввода продукта
             if (message.getText() != null &&  hashForProducts.containsKey("1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+                if (!Pattern.matches("[а-я; А-Я]+[0-9]?[0-9]*", message.getText())) {
+                    inlineButton2(message, "Введите только буквы");
+                }else if (!Pattern.matches("[а-я; А-Я]{3,}+[0-9]?[0-9]*", message.getText())) {
+                    inlineButton2(message, "Введите больше двух букв");
+                }
+                else {
                 message.getChatId();
                 String messages = update.getMessage().getText();
                 String response = MethodForProductCalories.process(messages);
-                inlineButton2(message, response);
+                inlineButton2(message, response);}
 
             }
 
@@ -143,10 +149,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             //Выбор роста в методе Индивидуальный расчет калорий
-            if (message.getText().equals("Счетчик калорий") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()),"1") && !message.getText().equals("Калории продуктов") && !message.getText().equals(" Анекдот Дня") && !message.getText().equals(" Рецепт Дня")) {
+            if (message.getText().equals("Счетчик калорий") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
                 hashForProducts.clear();
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
-                message.getChatId();
                 inlineButton1(message, "Индивидуальный расчет суточной нормы калорий.\nВведите свой рост (например: 175): ");
                 IndividualDataSQL.process(String.valueOf(message.getChatId()), "1", "1");
                 Connect_to_SQL.closeConnection();

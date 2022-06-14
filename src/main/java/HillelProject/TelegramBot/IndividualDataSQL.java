@@ -23,7 +23,7 @@ public class IndividualDataSQL {
         try {
 
         // комманда для SQL которая выводит базу данных
-        String sqlWorker = ("insert into d58pld23fdkd1a.products.\"individualCalories\" (\"chatId\", number, information)values ("+chatId+","+number+","+value+")");
+        String sqlWorker = ("insert into d1cfnt21boubau.products.\"individualCalories\" (\"chatId\", number, information)values ("+chatId+","+number+","+value+")");
 
 
         // Создаем подключение к базе данных

@@ -54,7 +54,7 @@ public class MethodForProductCalories {
         try {
 
             // комманда для SQL которая выводит базу данных
-            String sqlWorker = ("select * from d58pld23fdkd1a.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
+            String sqlWorker = ("select * from d1cfnt21boubau.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
 
             // Создаем подключение к базе данных
             Statement statement = mainJava.connection.createStatement();
