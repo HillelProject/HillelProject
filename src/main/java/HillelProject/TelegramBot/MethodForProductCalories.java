@@ -20,7 +20,6 @@ public class MethodForProductCalories {
     public static String result;
 
 
-
     // Создает объект класса MainJava
     public static void mainJava() {
         mainJava = new Connect_to_SQL();
@@ -30,14 +29,13 @@ public class MethodForProductCalories {
     public static void products() {
         products = new ProductsClass();
     }
-
+    static List<String> productes = new ArrayList<>();
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        String product = scanner.nextLine();
-        mainJava();
-        String botAnswer = process(product);
-        System.out.println(botAnswer);
+
+       productes.add("apple");
+       productes.add("orange");
+        System.out.println(productes.get(1));
 
     }
 
@@ -79,8 +77,11 @@ public class MethodForProductCalories {
                     products.setCarbohydrates(resultSet.getDouble(3));
                     products.setFats(resultSet.getDouble(4));
                     product.add(products);
+                    productes.add(resultSet.getString(1));
 
-                }result = product.stream()
+
+                }
+                result = product.stream()
                         .map(Object::toString)
                         .collect(Collectors.joining(""));
             }
