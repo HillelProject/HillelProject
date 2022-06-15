@@ -1,16 +1,16 @@
-package HillelProject.TelegramBot;
+package HillelProject.Methods;
 
+
+import HillelProject.Methods.Connect_to_SQL;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 
 
 
-public class IndividualDataSQL {
+public class InsertIndividualDataSQL {
 
     private static Connect_to_SQL mainJava;
-    public static String result;
-
 
     // Создает объект класса MainJava
     public static void mainJava() {

@@ -1,4 +1,4 @@
-package HillelProject.TelegramBot;
+package HillelProject.Methods;
 
 import java.net.URI;
 import java.net.URISyntaxException;

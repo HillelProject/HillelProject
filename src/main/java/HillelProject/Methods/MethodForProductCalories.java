@@ -1,5 +1,6 @@
-package HillelProject.TelegramBot;
+package HillelProject.Methods;
 
+import HillelProject.Methods.Connect_to_SQL;
 import HillelProject.Methods.ProductsClass;
 
 import java.sql.ResultSet;
@@ -7,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
@@ -30,14 +30,6 @@ public class MethodForProductCalories {
         products = new ProductsClass();
     }
     static List<String> productes = new ArrayList<>();
-    public static void main(String[] args) {
-
-
-       productes.add("apple");
-       productes.add("orange");
-        System.out.println(productes.get(1));
-
-    }
 
     /**
      * Метод который создает подключение к базе данных,

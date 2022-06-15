@@ -1,5 +1,7 @@
-package HillelProject.TelegramBot;
+package HillelProject.Methods;
 
+
+import HillelProject.Methods.Connect_to_SQL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +16,6 @@ public class IndividualDataMethods {
     // Создает объект класса MainJava
     public static void mainJava() {
         mainJava = new Connect_to_SQL();
-    }
-
-
-    public static void main(String[] args) {
-        mainJava();
-        System.out.println(checkIndividualCaloriesCalculation("547869530", "4"));
     }
 
     // Расчет индивидуальных калорий взятых из базы данных
@@ -100,7 +96,7 @@ public class IndividualDataMethods {
 
             String deleteInfo = ("delete from d1cfnt21boubau.products.\"individualCalories\" where \"chatId\"=" + chatId);
             Statement statement = mainJava.connection.createStatement();
-            int resultSetHeight = statement.executeUpdate(deleteInfo);
+            statement.executeUpdate(deleteInfo);
 
 
         } catch (SQLException e) {
