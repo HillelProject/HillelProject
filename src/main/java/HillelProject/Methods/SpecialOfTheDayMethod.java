@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class specialOfTheDay {
+public class SpecialOfTheDayMethod {
 
     public static String process(String message) {
         List<String> specialOfTheDay = new ArrayList<>();

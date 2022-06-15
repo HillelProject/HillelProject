@@ -1,24 +1,23 @@
-package HillelProject.TelegramBot;
+package HillelProject.Methods;
 
-import HillelProject.Methods.Products;
+import HillelProject.Methods.Connect_to_SQL;
+import HillelProject.Methods.ProductsClass;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /*
  Класс который содениняет ТелеграмБот с Базой Данных.
 */
-public class BotApp {
+public class MethodForProductCalories {
     private static Connect_to_SQL mainJava;
-    private static Products products;
+    private static ProductsClass products;
 
     public static String result;
-
 
 
     // Создает объект класса MainJava
@@ -28,18 +27,9 @@ public class BotApp {
 
     // Создает объект класса Products
     public static void products() {
-        products = new Products();
+        products = new ProductsClass();
     }
-
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        String product = scanner.nextLine();
-        mainJava();
-        String botAnswer = process(product);
-        System.out.println(botAnswer);
-
-    }
+    static List<String> productes = new ArrayList<>();
 
     /**
      * Метод который создает подключение к базе данных,
@@ -47,14 +37,14 @@ public class BotApp {
      * и выводит его. В случае если продукта нет, выводит что такого продукта нет.
      **/
     public static String process(String message) {
-        List<Products> product = new ArrayList<>();
+        List<ProductsClass> product = new ArrayList<>();
         String result = "Такого продукта нет";
 
 
         try {
 
             // комманда для SQL которая выводит базу данных
-            String sqlWorker = ("select * from d58pld23fdkd1a.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
+            String sqlWorker = ("select * from d1cfnt21boubau.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
 
             // Создаем подключение к базе данных
             Statement statement = mainJava.connection.createStatement();
@@ -80,7 +70,10 @@ public class BotApp {
                     products.setFats(resultSet.getDouble(4));
                     product.add(products);
 
-                }result = product.stream()
+
+
+                }
+                result = product.stream()
                         .map(Object::toString)
                         .collect(Collectors.joining(""));
             }

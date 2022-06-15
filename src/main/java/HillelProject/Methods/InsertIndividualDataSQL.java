@@ -1,18 +1,16 @@
-package HillelProject.TelegramBot;
+package HillelProject.Methods;
 
-import HillelProject.TelegramBot.Connect_to_SQL;
 
-import java.sql.ResultSet;
+import HillelProject.Methods.Connect_to_SQL;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 
-public class IndividualDataSQL {
+
+public class InsertIndividualDataSQL {
 
     private static Connect_to_SQL mainJava;
-    public static String result;
-
 
     // Создает объект класса MainJava
     public static void mainJava() {
@@ -25,7 +23,7 @@ public class IndividualDataSQL {
         try {
 
         // комманда для SQL которая выводит базу данных
-        String sqlWorker = ("insert into d58pld23fdkd1a.products.\"individualCalories\" (\"chatId\", number, information)values ("+chatId+","+number+","+value+")");
+        String sqlWorker = ("insert into d1cfnt21boubau.products.\"individualCalories\" (\"chatId\", number, information)values ("+chatId+","+number+","+value+")");
 
 
         // Создаем подключение к базе данных

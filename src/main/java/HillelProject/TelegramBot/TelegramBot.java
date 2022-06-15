@@ -1,7 +1,6 @@
 package HillelProject.TelegramBot;
 
-import HillelProject.Methods.IndividualDataFormula;
-import HillelProject.Methods.specialOfTheDay;
+import HillelProject.Methods.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -25,18 +24,20 @@ import java.util.regex.Pattern;
 public class TelegramBot extends TelegramLongPollingBot {
 
     public TelegramBot() {
-        BotApp.mainJava();
-        BotApp.products();
-        IndividualDataSQL.mainJava();
+        MethodForProductCalories.mainJava();
+        MethodForProductCalories.products();
+        InsertIndividualDataSQL.mainJava();
     }
 
-    HashMap<String, String> hashForIndividualCaloriesCalculation = new HashMap<>();
     HashMap<String, String> hashForProducts = new HashMap<>();
 
 
+    // метод обработки получения и отправки сообщений в телеграмм
     public void onUpdateReceived(Update update) {
 
         Message message = update.getMessage();
+        IndividualDataMethods.mainJava();
+        WaterBalanceMethods.mainJava();
         if (message != null && message.hasText()) {
 
             //Команда "/Start"
@@ -49,11 +50,11 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (message.getText().equals("Рецепт Дня")) {
                 message.getChatId();
                 String messages = update.getMessage().getText();
-                String response = specialOfTheDay.process(messages);
+                String response = SpecialOfTheDayMethod.process(messages);
                 sendText(message, response);
                 hashForProducts.clear();
-                hashForIndividualCaloriesCalculation.clear();
-
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
+                Connect_to_SQL.closeConnection();
             }
 
             // Если несколько раз нажать команду "Калории продуктов".
@@ -63,58 +64,65 @@ public class TelegramBot extends TelegramLongPollingBot {
                 hashForProducts.clear();
             }
 
-            // Выводит данные из базы данных после ввода продукта
-            if (message.getText() != null && hashForProducts.containsKey("1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Индивидуальный счетчик калорий") && !message.getText().equals(" Анекдот Дня") && !message.getText().equals(" Рецепт Дня")) {
-                message.getChatId();
-                String messages = update.getMessage().getText();
-                String response = BotApp.process(messages);
-                inlineButton2(message, response);
 
+            // Выводит данные продуктов из базы данных после ввода продукта
+            if (message.getText() != null && hashForProducts.containsKey("1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+                if (!Pattern.matches("[а-я; А-Я]+[0-9]?[0-9]*", message.getText())) {
+                    inlineButton2(message, "Введите только буквы");
+                } else if (!Pattern.matches("[а-я; А-Я]{3,}+[0-9]?[0-9]*", message.getText())) {
+                    inlineButton2(message, "Введите больше двух букв");
+                } else {
+                    message.getChatId();
+                    String messages = update.getMessage().getText();
+                    String response = MethodForProductCalories.process(messages);
+                    inlineButton2(message, response);
+                }
             }
 
             // Реакция на нажатие кнопки "Калории продуктов"
-            if (message.getText().equals("Калории продуктов") && !hashForProducts.containsKey("1") && !message.getText().equals("Индивидуальный счетчик калорий") && !message.getText().equals(" Анекдот Дня") && !message.getText().equals(" Рецепт Дня")) {
+            if (message.getText().equals("Калории продуктов") && !hashForProducts.containsKey("1") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
                 message.getChatId();
                 hashForProducts.clear();
-                hashForIndividualCaloriesCalculation.clear();
                 inlineButton1(message, "Введите название продукта: ");
                 hashForProducts.put("1", "Калории продуктов");
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
+                Connect_to_SQL.closeConnection();
             }
 
-            if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("4") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
+            // Выбор физической активности в методе Индивидуальный расчет калорий
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "4") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "5") && !message.getText().contains("Калории продуктов") && !message.getText().contains("Счетчик калорий") && !message.getText().contains("Водный баланс") && !message.getText().contains("Рецепт Дня")) {
                 message.getChatId();
                 CallbackQuery callbackQuery = update.getCallbackQuery();
                 String data = callbackQuery.getData();
                 if (data.equals("Мужской") || data.equals("Женский")) {
                     inlineButton4(message, "Выберите степень физической активности из списка:");
-                } else sendText(message, "Выберите Ваш пол из списка:");
-
-
+                }
             }
-            if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("3") && !hashForIndividualCaloriesCalculation.containsKey("4") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
+
+            // Выбор пола в методе Индивидуальный расчет калорий
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "3") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "4") && !message.getText().contains("Калории продуктов") && !message.getText().contains("Счетчик калорий") && !message.getText().contains("Водный баланс") && !message.getText().contains("Рецепт Дня")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой возраст(например: 25): ");
                 } else if (Double.parseDouble(message.getText()) < 150 && Double.parseDouble(message.getText()) > 0) {
                     inlineButton3(message, "Выберите Ваш пол из списка:");
-                    hashForIndividualCaloriesCalculation.put("4", message.getText());
-                    IndividualDataSQL.process(String.valueOf(message.getChatId()), "4", message.getText());
-
+                    InsertIndividualDataSQL.process(String.valueOf(message.getChatId()), "4", message.getText());
+                    Connect_to_SQL.closeConnection();
 
                 } else {
                     inlineButton1(message, "Пожайлуста вводите реальные цифры\nВведите свой возраст(например: 25): ");
                 }
             }
 
-            if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("2") && !hashForIndividualCaloriesCalculation.containsKey("3") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
+            //Выбор возраста в методе Индивидуальный расчет калорий
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "2") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "3") && !message.getText().contains("Калории продуктов") && !message.getText().contains("Счетчик калорий") && !message.getText().contains("Водный баланс") && !message.getText().contains("Рецепт Дня")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой вес(например: 50): ");
                 } else if (Double.parseDouble(message.getText()) < 250 && Double.parseDouble(message.getText()) > 0) {
                     inlineButton1(message, "Введите свой возраст(например: 25)");
-                    hashForIndividualCaloriesCalculation.put("3", message.getText());
-                    IndividualDataSQL.process(String.valueOf(message.getChatId()), "3", message.getText());
-
+                    InsertIndividualDataSQL.process(String.valueOf(message.getChatId()), "3", message.getText());
+                    Connect_to_SQL.closeConnection();
 
                 } else {
                     inlineButton1(message, "Пожайлуста вводите реальные цифры\nВведите свой вес(например: 50): ");
@@ -123,110 +131,127 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             }
 
-            if (message.getText() != null && hashForIndividualCaloriesCalculation.containsKey("1") && !hashForIndividualCaloriesCalculation.containsKey("2") && !message.getText().contains("Калории продуктов,Индивидуальный счетчик калорий, Анекдот Дня, Рецепт Дня")) {
+            //Выбор веса в методе Индивидуальный расчет калорий
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "1") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "2") && !message.getText().contains("Калории продуктов") && !message.getText().contains("Счетчик калорий") && !message.getText().contains("Водный баланс") && !message.getText().contains("Рецепт Дня")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой рост(например: 175): ");
                 } else if (Double.parseDouble(message.getText()) < 250 && Double.parseDouble(message.getText()) > 0) {
                     inlineButton1(message, "Введите свой вес(например: 50): ");
-                    hashForIndividualCaloriesCalculation.put("2", message.getText());
-                    IndividualDataSQL.process(String.valueOf(message.getChatId()), "2", message.getText());
-
+                    InsertIndividualDataSQL.process(String.valueOf(message.getChatId()), "2", message.getText());
+                    Connect_to_SQL.closeConnection();
 
                 } else {
                     inlineButton1(message, "Пожайлуста вводите реальные цифры\nВведите свой рост(например: 175): ");
                 }
+            }
 
+            //Выбор роста в методе Индивидуальный расчет калорий
+            if (message.getText().equals("Счетчик калорий") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+                hashForProducts.clear();
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
+                inlineButton1(message, "Индивидуальный расчет суточной нормы калорий.\nВведите свой рост (например: 175): ");
+                InsertIndividualDataSQL.process(String.valueOf(message.getChatId()), "1", "1");
+                Connect_to_SQL.closeConnection();
 
             }
 
-            if (message.getText().equals("Индивидуальный счетчик калорий") && !hashForIndividualCaloriesCalculation.containsKey("1") && !message.getText().equals("Калории продуктов") && !message.getText().equals(" Анекдот Дня") && !message.getText().equals(" Рецепт Дня")) {
-                hashForProducts.clear();
-                hashForIndividualCaloriesCalculation.clear();
-                message.getChatId();
-                String messages = update.getMessage().getText();
-                String response = specialOfTheDay.process(messages);
-                inlineButton1(message, "Индивидуальный расчет суточной нормы калорий.\nВведите свой рост (например: 175): ");
-                hashForIndividualCaloriesCalculation.put("1", message.getText());
-                IndividualDataSQL.process(String.valueOf(message.getChatId()), "1", "1");
+            if (message.getText() != null && WaterBalanceMethods.checkWaterBalance(String.valueOf(message.getChatId()),"1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+                if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
+                    inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой вес(например: 50): ");
+                } else {
+                    InsertWaterBalanceSQL.process(String.valueOf(message.getChatId()), "2", message.getText());
+                    String response = WaterBalanceMethods.individualWaterBalance(String.valueOf(message.getChatId()));
+                    sendText(message, "Ваша идеальная дневная норма воды: " +response+" мл.");
+                    WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
+                    Connect_to_SQL.closeConnection();
+                }
+            }
 
+            if (message.getText().equals("Водный баланс") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Рецепт Дня")) {
+                hashForProducts.clear();
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
+                WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
+                inlineButton1(message, "Индивидуальный расчет суточного водного баланса.\nВведите свой вес (например: 50): ");
+                InsertWaterBalanceSQL.process(String.valueOf(message.getChatId()), "1", "1");
+                Connect_to_SQL.closeConnection();
 
             }
 
             // Реакция на Inline меню
         } else if (update.hasCallbackQuery()) {
             Message message1 = update.getCallbackQuery().getMessage();
-            IndividualDataFormula2.mainJava();
+            IndividualDataMethods.mainJava();
             CallbackQuery callbackQuery = update.getCallbackQuery();
             String data = callbackQuery.getData();
             SendMessage sendMessage = new SendMessage();
             sendMessage.setParseMode(ParseMode.MARKDOWN);
             sendMessage.setChatId(String.valueOf(message1.getChatId()));
 
+            // Реакция на Хватит в Inline меню
             if (data.equals("Хватит")) {
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 sendMessage.setText("Хорошо");
-                hashForIndividualCaloriesCalculation.clear();
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
                 hashForProducts.clear();
-
+                Connect_to_SQL.closeConnection();
             }
+            // Реакция на Cancel в Inline меню
             if (data.equals("Cancel")) {
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 sendMessage.setText("Хорошо");
-                hashForIndividualCaloriesCalculation.clear();
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
                 hashForProducts.clear();
-
+                Connect_to_SQL.closeConnection();
             }
 
+            // Реакция на выбор пола Мужской в Inline меню
             if (data.equals("Мужской")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 inlineButton4(message1, "Выберите степень физической активности из списка:");
-                hashForIndividualCaloriesCalculation.put("5", "88.36");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "5", "88.36");
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "5", "88.36");
+                Connect_to_SQL.closeConnection();
 
-
+                // Реакция на выбор пола Женский в Inline меню
             } else if (data.equals("Женский")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
                 inlineButton4(message1, "Выберите степень физической активности из списка:");
-                hashForIndividualCaloriesCalculation.put("5", "447.6");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "5", "447.6");
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "5", "447.6");
+                Connect_to_SQL.closeConnection();
 
 
-            } else if (data.equals("Нет физических нагрузок")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
-                hashForIndividualCaloriesCalculation.put("6", "1.2");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.2");
-                sendMessage.setText(IndividualDataFormula2.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                // Реакция на выбор "Нет физических нагрузок" в Inline меню
+            } else if (data.equals("Нет физических нагрузок") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.2");
+                sendMessage.setText(IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
+                Connect_to_SQL.closeConnection();
 
-                hashForIndividualCaloriesCalculation.clear();
-            } else if (data.equals("Нагрузки 1–3 раза в неделю")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
-                hashForIndividualCaloriesCalculation.put("6", "1.375");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.375");
-                sendMessage.setText(IndividualDataFormula2.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                // Реакция на выбор "Нагрузки 1–3 раза в неделю" в Inline меню
+            } else if (data.equals("Нагрузки 1–3 раза в неделю") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.375");
+                sendMessage.setText(IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
+                Connect_to_SQL.closeConnection();
 
-                hashForIndividualCaloriesCalculation.clear();
-            } else if (data.equals("Нагрузки 3–5 раз в неделю")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
-                hashForIndividualCaloriesCalculation.put("6", "1.55");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.55");
-                sendMessage.setText(IndividualDataFormula2.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                // Реакция на выбор "Нагрузки 3–5 раз в неделю" в Inline меню
+            } else if (data.equals("Нагрузки 3–5 раз в неделю") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.55");
+                sendMessage.setText(IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
+                Connect_to_SQL.closeConnection();
 
-                hashForIndividualCaloriesCalculation.clear();
-            } else if (data.equals("Нагрузки 6–7 раз в неделю")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
-                hashForIndividualCaloriesCalculation.put("6", "1.725");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.725");
-                sendMessage.setText(IndividualDataFormula2.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                // Реакция на выбор "Нагрузки 6–7 раз в неделю" в Inline меню
+            } else if (data.equals("Нагрузки 6–7 раз в неделю") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.725");
+                sendMessage.setText(IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
+                Connect_to_SQL.closeConnection();
 
-                hashForIndividualCaloriesCalculation.clear();
-            } else if (data.equals("Ежедневно более одной тренировки")) {
-                sendMessage.setChatId(String.valueOf(message1.getChatId()));
-                hashForIndividualCaloriesCalculation.put("6", "1.9");
-                IndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.9");
-                sendMessage.setText(IndividualDataFormula2.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
-
-                hashForIndividualCaloriesCalculation.clear();
+                // Реакция на выбор "Ежедневно более одной тренировки" в Inline меню
+            } else if (data.equals("Ежедневно более одной тренировки") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
+                InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.9");
+                sendMessage.setText(IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
+                Connect_to_SQL.closeConnection();
             }
 
             try {
@@ -260,13 +285,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
         keyboardFirstRow.add("Рецепт Дня");
-        keyboardFirstRow.add("Индивидуальный счетчик калорий");
+        keyboardFirstRow.add("Счетчик калорий");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Добавляем кнопки во вторую строчку клавиатуры
         keyboardSecondRow.add("Калории продуктов");
-        keyboardSecondRow.add("Анекдот Дня");
+        keyboardSecondRow.add("Водный баланс");
 
         // Добавляем все строчки клавиатуры в список
         keyboard.add(keyboardFirstRow);
@@ -274,7 +299,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         // и устанавливаем этот список нашей клавиатуре
         replyKeyboardMarkup.setKeyboard(keyboard);
         sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
@@ -304,7 +328,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
         sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
@@ -333,7 +356,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
         sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
@@ -342,6 +364,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    // Inline меню для выбора пола в Индивидуальный расчет калорий
     void inlineButton3(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -360,12 +383,8 @@ public class TelegramBot extends TelegramLongPollingBot {
         inlineKeyboardButtons.add(inlineKeyboardButton2);
         inlineButtons.add(inlineKeyboardButtons);
         inlineKeyboardMarkup.setKeyboard(inlineButtons);
-
         sendMessage.setReplyMarkup(inlineKeyboardMarkup);
-
-
         sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
@@ -374,6 +393,8 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+
+    // Inline меню для выбора физической активности в Индивидуальный расчет калорий
     void inlineButton4(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -427,7 +448,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
         sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
