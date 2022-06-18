@@ -1,10 +1,12 @@
 package HillelProject.Methods;
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InsertUserDataToSQLWaterReminder {
-    private static Connect_to_SQL mainJava;
+    private static ConnectToSQL mainJava;
     public static void insertChatIdInWaterReminderSQL(String chatId) {
 
         try {

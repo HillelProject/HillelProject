@@ -1,5 +1,7 @@
 package HillelProject.Methods;
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,8 +12,8 @@ import java.util.stream.Collectors;
 /*
  Класс который содениняет ТелеграмБот с Базой Данных.
 */
-public class MethodForProductCalories {
-    private static Connect_to_SQL mainJava;
+public class ProductCaloriesMethod {
+    private static ConnectToSQL mainJava;
     private static ProductsClass products;
 
     public static String result;

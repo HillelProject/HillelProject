@@ -1,6 +1,7 @@
 package HillelProject.Methods;
 
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
 import HillelProject.TelegramBot.TelegramBot;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -14,7 +15,7 @@ import java.sql.Statement;
 
 
 public class WaterReminderMethod implements Job {
-    private static Connect_to_SQL mainJava;
+    private static ConnectToSQL mainJava;
     TelegramBot telegramBot = new TelegramBot();
 
     @Override
@@ -54,6 +55,6 @@ public class WaterReminderMethod implements Job {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } Connect_to_SQL.closeConnection();
+        } ConnectToSQL.closeConnection();
     }
 }

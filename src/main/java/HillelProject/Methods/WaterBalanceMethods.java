@@ -1,11 +1,13 @@
 package HillelProject.Methods;
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class WaterBalanceMethods {
-    private static Connect_to_SQL mainJava;
+    private static ConnectToSQL mainJava;
 
     // Расчет индивидуальных калорий взятых из базы данных
     public static String individualWaterBalance(String chatId) {

@@ -1,5 +1,6 @@
 package HillelProject.TelegramBot;
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
 import HillelProject.Methods.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -23,8 +24,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
     public TelegramBot() {
-        Connect_to_SQL.mainJava();
-        MethodForProductCalories.products();
+        ConnectToSQL.mainJava();
+        ProductCaloriesMethod.products();
     }
 
     HashMap<String, String> hashForProducts = new HashMap<>();
@@ -34,7 +35,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         Message message = update.getMessage();
-        Connect_to_SQL.mainJava();
+        ConnectToSQL.mainJava();
 
         if (message != null && message.hasText()) {
 
@@ -74,7 +75,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } else {
                     message.getChatId();
                     String messages = update.getMessage().getText();
-                    String response = MethodForProductCalories.process(messages);
+                    String response = ProductCaloriesMethod.process(messages);
                     inlineButton2(message, response);
                 }
             }
@@ -163,7 +164,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     String response = WaterBalanceMethods.individualWaterBalance(String.valueOf(message.getChatId()));
                     sendText(message, "Ваша идеальная дневная норма воды: " +response+" мл.");
                     WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
-                   inlineButton5(message, "Хотите я вам буду напоминать о приеме воды в течении дня?");
+                    inlineButton5(message, "Хотите я вам буду напоминать о приеме воды в течении дня?");
 
                 }
             }
@@ -272,7 +273,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 e.printStackTrace();
 
             }
-        }Connect_to_SQL.closeConnection();
+        }
+        ConnectToSQL.closeConnection();
 
     }
 
@@ -470,7 +472,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
 
-   //  Inline меню для выбора пола в Индивидуальный расчет калорий
+    //  Inline меню для выбора пола в Индивидуальный расчет калорий
     void inlineButton5(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
@@ -509,6 +511,4 @@ public class TelegramBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return "5415629103:AAHIS7AIxqOOU5bAc58nk1I9w-aqCuyYDG0";
     }
-
-
 }
