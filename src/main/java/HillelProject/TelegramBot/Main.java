@@ -12,6 +12,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.util.TimeZone;
+
 import static org.quartz.JobBuilder.newJob;
 
 public class Main {
@@ -34,7 +36,7 @@ public class Main {
                     .build();
 
             ScheduleBuilder scheduleBuilder =
-                    CronScheduleBuilder.cronSchedule("0 0 9-20 ? * * *");
+                    CronScheduleBuilder.cronSchedule("0 0 9-20 ? * * *").inTimeZone(TimeZone.getTimeZone("Europe/Kiev"));
             Trigger trigger = TriggerBuilder.newTrigger().
                     withSchedule(scheduleBuilder).build();
 
