@@ -7,12 +7,6 @@ public class InsertWaterBalanceSQL {
 
     private static Connect_to_SQL mainJava;
 
-    // Создает объект класса MainJava
-    public static void mainJava() {
-        mainJava = new Connect_to_SQL();
-    }
-
-
     public static void process(String chatId, String number, String value) {
 
         try {

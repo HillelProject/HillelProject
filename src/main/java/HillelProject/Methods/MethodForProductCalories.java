@@ -1,8 +1,5 @@
 package HillelProject.Methods;
 
-import HillelProject.Methods.Connect_to_SQL;
-import HillelProject.Methods.ProductsClass;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,11 +16,6 @@ public class MethodForProductCalories {
 
     public static String result;
 
-
-    // Создает объект класса MainJava
-    public static void mainJava() {
-        mainJava = new Connect_to_SQL();
-    }
 
     // Создает объект класса Products
     public static void products() {

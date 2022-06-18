@@ -15,6 +15,7 @@ public class Connect_to_SQL {
     private static final String username = "nppbhlsnlrefla";
     private static final String password ="f3de020609870a3288e019f02f0a906c132f793f52329e8fc9c2892a03f0b403";
     static Connection connection;
+    private static Connect_to_SQL mainJava;
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
@@ -33,13 +34,14 @@ public class Connect_to_SQL {
             throw new RuntimeException(e);
         }
     }
+    public static void mainJava() {
+        mainJava = new Connect_to_SQL();
+    }
 
     public Connect_to_SQL() {
         try {
 
             connection = DriverManager.getConnection(dbUrl, username, password);
-
-
 
         } catch (SQLException e) {
             System.out.println(e);
