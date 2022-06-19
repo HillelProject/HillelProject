@@ -38,13 +38,14 @@ public class ProductCaloriesMethod {
         try {
 
             // комманда для SQL которая выводит базу данных
-            String sqlWorker = ("select * from d1cfnt21boubau.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
+            String searchProductFromSQL = ("select * from d1cfnt21boubau.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
 
+            String insertUserProductToSQL = ("insert into d1cfnt21boubau.products.\"UserProducts\" (\"Products_Name\", Protein,Carbohydrates,Fats, Calories)values ("+chatId+","+number+","+value+")");
             // Создаем подключение к базе данных
             Statement statement = mainJava.connection.createStatement();
 
             // Выполняем команду Select для SQL
-            ResultSet resultSet = statement.executeQuery(sqlWorker);
+            ResultSet resultSet = statement.executeQuery(searchProductFromSQL);
 
 
 
