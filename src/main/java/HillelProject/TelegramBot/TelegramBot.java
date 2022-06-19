@@ -72,7 +72,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             // Команда Рецепт Дня
             if (message.getText().equals("Рецепт Дня")) {
                 message.getChatId();
-                sendText2(message, "Выберите рецепт");
+                sendText2(message, "Выберите рецепт из меню");
                 hashForProducts.clear();
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
                 WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
