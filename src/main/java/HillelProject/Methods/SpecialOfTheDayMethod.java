@@ -560,7 +560,7 @@ public class SpecialOfTheDayMethod {
     public static String processLunch(String message) {
         List<String> specialOfTheDayLunch = new ArrayList<>();
 
-        int number = random.nextInt(25);
+        int number = random.nextInt(24);
 
 
         specialOfTheDayLunch.add("""
@@ -1349,12 +1349,7 @@ public class SpecialOfTheDayMethod {
         specialOfTheDaySnack.add(
                 "Апельсин 200г Грецкие орехи 20г\n" +
                         "КБЖУ 226,3/6,1/13,1/21");
-        specialOfTheDaySnack.add("""
-                                
-                Творожно-кофейный мусс (можно приготовить за день, вечером или сегодня утром)
-                +банан 120г
-                                
-                КБЖУ 261,9/14,7/8,7/31,2""");
+
         specialOfTheDaySnack.add("""
                                 
                 Апельсин 150г

@@ -43,24 +43,24 @@ public class TelegramBot extends TelegramLongPollingBot {
             //Команда "/Start"
             if (message.getText().equals("/start")) {
                 message.getChatId();
-                sendText(message, "Выберите действие из меню");
+                sendText(message, "Выберите действие из меню" + "\uD83D\uDE02");
             }
 
-            if (message.getText().equals("Завтрак")) {
+            if (message.getText().equals("\uD83E\uDD5E"+" Завтрак "+"\uD83E\uDD5E")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.processBreakFast(message.getText()));
             }
-            if (message.getText().equals("Обед")) {
+            if (message.getText().equals("\uD83E\uDD57"+"Обед"+"\uD83E\uDD57")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.processLunch(message.getText()));
             }
 
-            if (message.getText().equals("Десерт/Перекус")) {
+            if (message.getText().equals("Десерт/Перекус" + "\uD83E\uDDC1")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDesertHalf(message.getText()));
             }
 
-            if (message.getText().equals("Ужин")) {
+            if (message.getText().equals("\uD83C\uDF5D"+"Ужин"+"\uD83C\uDF5D")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDinner(message.getText()));
             }
@@ -540,14 +540,14 @@ public class TelegramBot extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add("Завтрак");
-        keyboardFirstRow.add("Обед");
+        keyboardFirstRow.add("\uD83E\uDD5E"+" Завтрак "+"\uD83E\uDD5E");
+        keyboardFirstRow.add("\uD83E\uDD57"+"Обед"+"\uD83E\uDD57");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Добавляем кнопки во вторую строчку клавиатуры
-        keyboardSecondRow.add("Ужин");
-        keyboardSecondRow.add("Десерт/Перекус");
+        keyboardSecondRow.add("\uD83C\uDF5D"+"Ужин"+"\uD83C\uDF5D");
+        keyboardSecondRow.add("\uD83E\uDDC1"+" Десерт/Перекус " + "\uD83E\uDDC1");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardThirdRow = new KeyboardRow();
