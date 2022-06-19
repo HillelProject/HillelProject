@@ -72,10 +72,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             // Команда Рецепт Дня
             if (message.getText().equals("Рецепт Дня")) {
                 message.getChatId();
-                String messages = update.getMessage().getText();
-               // String response = SpecialOfTheDayMethod.process(messages);
-               // sendText(message, response);
-                sendText2(message,"выберите рецепт");
+                sendText2(message, "выберите рецепт");
                 hashForProducts.clear();
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
                 WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
@@ -100,8 +97,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } else {
                     message.getChatId();
                     String messages = update.getMessage().getText();
-                   String response = ProductCaloriesMethod.process(messages);
-                   inlineButton2(message, response);
+                    String response = ProductCaloriesMethod.process(messages);
+                    inlineButton2(message, response);
                 }
             }
 
@@ -497,7 +494,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
     //  Inline меню для выбора пола в Индивидуальный расчет калорий
-   public void inlineButton5(Message message, String text) {
+    public void inlineButton5(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         //Inline KeyBoard
