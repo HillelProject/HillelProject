@@ -43,7 +43,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             //Команда "/Start"
             if (message.getText().equals("/start")) {
                 message.getChatId();
-                sendText(message, "Я работаю ёпта, выбирай из менюшки что надо");
+                sendText(message, "Выберите действие из меню");
             }
 
             if (message.getText().equals("Завтрак")) {
