@@ -241,7 +241,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 // Реакция на выбор "Нагрузки 1–3 раза в неделю" в Inline меню
             } else if (data.equals("Нагрузки 1–3 раза в неделю") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
                 InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.375");
-                sendMessage.setText("Ваша суточная норма употребления каллорий: " +IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                sendMessage.setText("Ваша суточная норма употребления каллорий: " + IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
 
 
