@@ -1,30 +1,19 @@
 package HillelProject.Methods;
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class WaterBalanceMethods {
-    private static Connect_to_SQL mainJava;
-
-
-    // Создает объект класса MainJava
-    public static void mainJava() {
-        mainJava = new Connect_to_SQL();
-    }
-
-    public static void main(String[] args) {
-        mainJava();
-        System.out.println(individualWaterBalance("547869530"));
-    }
+    private static ConnectToSQL mainJava;
 
     // Расчет индивидуальных калорий взятых из базы данных
     public static String individualWaterBalance(String chatId) {
 
-
         double weightConstant = 30;
         double result = 1;
-
 
         try {
 

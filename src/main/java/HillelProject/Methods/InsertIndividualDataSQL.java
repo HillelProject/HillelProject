@@ -1,7 +1,6 @@
 package HillelProject.Methods;
 
-
-import HillelProject.Methods.Connect_to_SQL;
+import HillelProject.ConnectionSQL.ConnectToSQL;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,14 +9,7 @@ import java.sql.Statement;
 
 public class InsertIndividualDataSQL {
 
-    private static Connect_to_SQL mainJava;
-
-    // Создает объект класса MainJava
-    public static void mainJava() {
-        mainJava = new Connect_to_SQL();
-    }
-
-
+    private static ConnectToSQL mainJava;
     public static void process(String chatId, String number, String value) {
 
         try {
@@ -31,8 +23,6 @@ public class InsertIndividualDataSQL {
 
         // Выполняем команду Select для SQL
         int resultSet = statement.executeUpdate(sqlWorker);
-
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,17 +1,13 @@
 package HillelProject.Methods;
 
+import HillelProject.ConnectionSQL.ConnectToSQL;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InsertWaterBalanceSQL {
 
-    private static Connect_to_SQL mainJava;
-
-    // Создает объект класса MainJava
-    public static void mainJava() {
-        mainJava = new Connect_to_SQL();
-    }
-
+    private static ConnectToSQL mainJava;
 
     public static void process(String chatId, String number, String value) {
 

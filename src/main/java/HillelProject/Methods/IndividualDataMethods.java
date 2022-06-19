@@ -1,7 +1,7 @@
 package HillelProject.Methods;
 
 
-import HillelProject.Methods.Connect_to_SQL;
+import HillelProject.ConnectionSQL.ConnectToSQL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +10,7 @@ import java.sql.Statement;
 
 public class IndividualDataMethods {
 
-    private static Connect_to_SQL mainJava;
-
-
-    // Создает объект класса MainJava
-    public static void mainJava() {
-        mainJava = new Connect_to_SQL();
-    }
+    private static ConnectToSQL mainJava;
 
     // Расчет индивидуальных калорий взятых из базы данных
     public static String individualCaloriesCalculation(String chatId) {
@@ -125,6 +119,4 @@ public class IndividualDataMethods {
             throw new RuntimeException(e);
         }
     }
-
-
 }
