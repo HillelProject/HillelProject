@@ -46,12 +46,36 @@ public class TelegramBot extends TelegramLongPollingBot {
                 sendText(message, "Я работаю ёпта, выбирай из менюшки что надо");
             }
 
+            if (message.getText().equals("Завтрак")) {
+                message.getChatId();
+                sendText2(message, SpecialOfTheDayMethod.processBreakFast(message.getText()));
+            }
+            if (message.getText().equals("Обед")) {
+                message.getChatId();
+                sendText2(message, SpecialOfTheDayMethod.processLunch(message.getText()));
+            }
+
+            if (message.getText().equals("Десерт/Перекус")) {
+                message.getChatId();
+                sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDesertHalf(message.getText()));
+            }
+
+            if (message.getText().equals("Ужин")) {
+                message.getChatId();
+                sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDinner(message.getText()));
+            }
+
+            if (message.getText().equals("Назад в меню")) {
+                message.getChatId();
+                sendText(message, "Выберите из действие из меню");
+            }
             // Команда Рецепт Дня
             if (message.getText().equals("Рецепт Дня")) {
                 message.getChatId();
                 String messages = update.getMessage().getText();
-                String response = SpecialOfTheDayMethod.process(messages);
-                sendText(message, response);
+               // String response = SpecialOfTheDayMethod.process(messages);
+               // sendText(message, response);
+                sendText2(message,"выберите рецепт");
                 hashForProducts.clear();
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
                 WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
@@ -76,8 +100,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } else {
                     message.getChatId();
                     String messages = update.getMessage().getText();
-                 //   String response = ProductCaloriesMethod.process(messages);
-                  //  inlineButton2(message, response);
+                   String response = ProductCaloriesMethod.process(messages);
+                   inlineButton2(message, response);
                 }
             }
 
@@ -473,7 +497,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
     //  Inline меню для выбора пола в Индивидуальный расчет калорий
-    void inlineButton5(Message message, String text) {
+   public void inlineButton5(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         //Inline KeyBoard
@@ -492,6 +516,51 @@ public class TelegramBot extends TelegramLongPollingBot {
         inlineButtons.add(inlineKeyboardButtons);
         inlineKeyboardMarkup.setKeyboard(inlineButtons);
         sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendText2(Message message, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        // Создаем клавиатуру
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        // Создаем список строк клавиатуры
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        // Первая строчка клавиатуры
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        // Добавляем кнопки в первую строчку клавиатуры
+        keyboardFirstRow.add("Завтрак");
+        keyboardFirstRow.add("Обед");
+
+        // Вторая строчка клавиатуры
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        // Добавляем кнопки во вторую строчку клавиатуры
+        keyboardSecondRow.add("Ужин");
+        keyboardSecondRow.add("Десерт/Перекус");
+
+        // Вторая строчка клавиатуры
+        KeyboardRow keyboardThirdRow = new KeyboardRow();
+        keyboardThirdRow.add("Назад в меню");
+        // Добавляем все строчки клавиатуры в список
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        keyboard.add(keyboardThirdRow);
+        // и устанавливаем этот список нашей клавиатуре
+        replyKeyboardMarkup.setKeyboard(keyboard);
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setText(text);
         try {
