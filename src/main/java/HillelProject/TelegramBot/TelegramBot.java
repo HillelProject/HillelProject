@@ -76,8 +76,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } else {
                     message.getChatId();
                     String messages = update.getMessage().getText();
-                    String response = ProductCaloriesMethod.process(messages);
-                    inlineButton2(message, response);
+                 //   String response = ProductCaloriesMethod.process(messages);
+                  //  inlineButton2(message, response);
                 }
             }
 
