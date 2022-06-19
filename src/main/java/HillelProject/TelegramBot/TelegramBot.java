@@ -43,24 +43,24 @@ public class TelegramBot extends TelegramLongPollingBot {
             //Команда "/Start"
             if (message.getText().equals("/start")) {
                 message.getChatId();
-                sendText(message, "Выберите действие из меню" + "\uD83D\uDE02");
+                sendText(message, "Выберите действие из меню");
             }
 
-            if (message.getText().equals("\uD83E\uDD5E"+" Завтрак "+"\uD83E\uDD5E")) {
+            if (message.getText().equals("\uD83E\uDD5E"+" Завтрак")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.processBreakFast(message.getText()));
             }
-            if (message.getText().equals("\uD83E\uDD57"+"Обед"+"\uD83E\uDD57")) {
+            if (message.getText().equals("\uD83E\uDD57" + " Обед")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.processLunch(message.getText()));
             }
 
-            if (message.getText().equals("Десерт/Перекус" + "\uD83E\uDDC1")) {
+            if (message.getText().equals("\uD83E\uDDC1"+" Десерт/Перекус")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDesertHalf(message.getText()));
             }
 
-            if (message.getText().equals("\uD83C\uDF5D"+"Ужин"+"\uD83C\uDF5D")) {
+            if (message.getText().equals("\uD83C\uDF5D"+" Ужин")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDinner(message.getText()));
             }
@@ -540,14 +540,14 @@ public class TelegramBot extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add("\uD83E\uDD5E"+" Завтрак "+"\uD83E\uDD5E");
-        keyboardFirstRow.add("\uD83E\uDD57"+"Обед"+"\uD83E\uDD57");
+        keyboardFirstRow.add("\uD83E\uDD5E"+" Завтрак");
+        keyboardFirstRow.add("\uD83E\uDD57" + " Обед");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Добавляем кнопки во вторую строчку клавиатуры
-        keyboardSecondRow.add("\uD83C\uDF5D"+"Ужин"+"\uD83C\uDF5D");
-        keyboardSecondRow.add("\uD83E\uDDC1"+" Десерт/Перекус " + "\uD83E\uDDC1");
+        keyboardSecondRow.add("\uD83C\uDF5D"+" Ужин");
+        keyboardSecondRow.add("\uD83E\uDDC1"+" Десерт/Перекус");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardThirdRow = new KeyboardRow();
