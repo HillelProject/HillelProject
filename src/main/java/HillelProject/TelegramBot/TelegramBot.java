@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -156,13 +157,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             }
 
-            if (message.getText() != null && WaterBalanceMethods.checkWaterBalance(String.valueOf(message.getChatId()),"1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && WaterBalanceMethods.checkWaterBalance(String.valueOf(message.getChatId()), "1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой вес(например: 50): ");
                 } else {
                     InsertWaterBalanceSQL.process(String.valueOf(message.getChatId()), "2", message.getText());
                     String response = WaterBalanceMethods.individualWaterBalance(String.valueOf(message.getChatId()));
-                    sendText(message, "Ваша идеальная дневная норма воды: " +response+" мл.");
+                    sendText(message, "Ваша идеальная дневная норма воды: " + response + " мл.");
                     WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
                     inlineButton5(message, "Хотите я вам буду напоминать о приеме воды в течении дня?");
 
@@ -234,21 +235,21 @@ public class TelegramBot extends TelegramLongPollingBot {
                 // Реакция на выбор "Нет физических нагрузок" в Inline меню
             } else if (data.equals("Нет физических нагрузок") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
                 InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.2");
-                sendMessage.setText("Ваша суточная норма употребления каллорий: " +IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                sendMessage.setText("Ваша суточная норма употребления каллорий: " + IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
 
 
                 // Реакция на выбор "Нагрузки 1–3 раза в неделю" в Inline меню
             } else if (data.equals("Нагрузки 1–3 раза в неделю") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
                 InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.375");
-                sendMessage.setText("Ваша суточная норма употребления каллорий: " +IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                sendMessage.setText("Ваша суточная норма употребления каллорий: " + IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
 
 
                 // Реакция на выбор "Нагрузки 3–5 раз в неделю" в Inline меню
             } else if (data.equals("Нагрузки 3–5 раз в неделю") && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message1.getChatId()), "5")) {
                 InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.55");
-                sendMessage.setText("Ваша суточная норма употребления каллорий: " +IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
+                sendMessage.setText("Ваша суточная норма употребления каллорий: " + IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
 
 
@@ -277,7 +278,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         ConnectToSQL.closeConnection();
 
     }
-
 
 
     // Метод отправки сообщения
@@ -509,6 +509,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "5415629103:AAHIS7AIxqOOU5bAc58nk1I9w-aqCuyYDG0";
+        return "5415629103:AAGqia5q5sxnDMOhReE8KUDNTn1IxWOrObU";
     }
 }
