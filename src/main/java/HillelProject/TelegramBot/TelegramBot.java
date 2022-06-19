@@ -1,5 +1,4 @@
 package HillelProject.TelegramBot;
-
 import HillelProject.ConnectionSQL.ConnectToSQL;
 import HillelProject.Methods.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -46,21 +45,21 @@ public class TelegramBot extends TelegramLongPollingBot {
                 sendText(message, "Выберите действие из меню");
             }
 
-            if (message.getText().equals("\uD83E\uDD5E"+" Завтрак")) {
+            if (message.getText().equals(" Завтрак")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.processBreakFast(message.getText()));
             }
-            if (message.getText().equals("\uD83E\uDD57" + " Обед")) {
+            if (message.getText().equals( " Обед")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.processLunch(message.getText()));
             }
 
-            if (message.getText().equals("\uD83E\uDDC1"+" Десерт/Перекус")) {
+            if (message.getText().equals(" Десерт/Перекус")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDesertHalf(message.getText()));
             }
 
-            if (message.getText().equals("\uD83C\uDF5D"+" Ужин")) {
+            if (message.getText().equals(" Ужин")) {
                 message.getChatId();
                 sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDinner(message.getText()));
             }
@@ -540,14 +539,14 @@ public class TelegramBot extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add("\uD83E\uDD5E"+" Завтрак");
-        keyboardFirstRow.add("\uD83E\uDD57" + " Обед");
+        keyboardFirstRow.add(" Завтрак");
+        keyboardFirstRow.add( " Обед");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Добавляем кнопки во вторую строчку клавиатуры
-        keyboardSecondRow.add("\uD83C\uDF5D"+" Ужин");
-        keyboardSecondRow.add("\uD83E\uDDC1"+" Десерт/Перекус");
+        keyboardSecondRow.add(" Ужин");
+        keyboardSecondRow.add(" Десерт/Перекус");
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardThirdRow = new KeyboardRow();
