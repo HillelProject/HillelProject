@@ -18,6 +18,8 @@ public class WaterReminderMethod implements Job {
     private static ConnectToSQL mainJava;
     TelegramBot telegramBot = new TelegramBot();
 
+
+    // метод отправляет напоминание выпить воду
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
@@ -36,8 +38,7 @@ public class WaterReminderMethod implements Job {
 
 
 
-            /* Проверяем всю базу данных на наличие продукта, если такой есть,
-              то задаем переменные из таблицы в Класс Products
+            /* Отправляет в чат сообщение о том что нужно выпить воду
              */
             while (resultSet.next()) {
                String result = resultSet.getString(1);

@@ -263,7 +263,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 InsertIndividualDataSQL.process(String.valueOf(message1.getChatId()), "6", "1.9");
                 sendMessage.setText("Ваша суточная норма употребления каллорий: " + IndividualDataMethods.individualCaloriesCalculation(String.valueOf(message1.getChatId())));
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message1.getChatId()));
-// Рефактор елсе
+
             }
 
             try {
