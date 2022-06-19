@@ -67,7 +67,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             if (message.getText().equals("Назад в меню")) {
                 message.getChatId();
-                sendText(message, "Выберите из действие из меню");
+                sendText(message, "Выберите действие из меню");
             }
             // Команда Рецепт Дня
             if (message.getText().equals("Рецепт Дня")) {
