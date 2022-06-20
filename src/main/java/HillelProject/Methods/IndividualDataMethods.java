@@ -81,7 +81,7 @@ public class IndividualDataMethods {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Double.toString(result);
+        return Double.toString((int) result);
     }
 
     // Удаляет из базы данных информацию о пользователе
