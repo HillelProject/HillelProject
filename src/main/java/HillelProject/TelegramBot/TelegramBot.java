@@ -229,7 +229,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             // Реакция на Да в Inline меню в выборе упоминаний пить воду
             if (data.equals("Да")) {
                 sendMessage.setChatId(String.valueOf(message1.getChatId()));
-                sendMessage.setText("Раз в час я вам буду напоминать пить воду");
+                sendMessage.setText("Раз в час с 09:00 до 20:00 я вам буду напоминать пить воду");
                 InsertUserDataToSQLWaterReminder.insertChatIdInWaterReminderSQL(String.valueOf(message1.getChatId()));
 
             }
