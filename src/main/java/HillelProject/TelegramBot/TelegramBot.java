@@ -69,7 +69,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 sendText(message, "Выберите действие из меню");
             }
             // Команда Рецепт Дня
-            if (message.getText().equals("Рецепт Дня")) {
+            if (message.getText().equals("Рецепты")) {
                 message.getChatId();
                 sendText2(message, "Выберите рецепт из меню");
                 hashForProducts.clear();
@@ -88,7 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
             // Выводит данные продуктов из базы данных после ввода продукта
-            if (message.getText() != null && hashForProducts.containsKey("1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && hashForProducts.containsKey("1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 if (!Pattern.matches("[а-я; А-Я]+[0-9]?[0-9]*", message.getText())) {
                     inlineButton2(message, "Введите только буквы");
                 } else if (!Pattern.matches("[а-я; А-Я]{3,}+[0-9]?[0-9]*", message.getText())) {
@@ -102,7 +102,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             // Реакция на нажатие кнопки "Калории продуктов"
-            if (message.getText().equals("Калории продуктов") && !hashForProducts.containsKey("1") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText().equals("Калории продуктов") && !hashForProducts.containsKey("1") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 message.getChatId();
                 hashForProducts.clear();
                 inlineButton1(message, "Введите название продукта: ");
@@ -113,7 +113,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             // Выбор физической активности в методе Индивидуальный расчет калорий
-            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "4") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "5") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "4") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "5") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 message.getChatId();
                 CallbackQuery callbackQuery = update.getCallbackQuery();
                 String data = callbackQuery.getData();
@@ -123,7 +123,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             // Выбор пола в методе Индивидуальный расчет калорий
-            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "3") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "4") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "3") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "4") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой возраст(например: 25): ");
@@ -137,7 +137,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             //Выбор возраста в методе Индивидуальный расчет калорий
-            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "2") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "3") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "2") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "3") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой вес(например: 50): ");
@@ -153,7 +153,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             //Выбор веса в методе Индивидуальный расчет калорий
-            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "1") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "2") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "1") && !IndividualDataMethods.checkIndividualCaloriesCalculation(String.valueOf(message.getChatId()), "2") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 message.getChatId();
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой рост(например: 175): ");
@@ -168,7 +168,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             //Выбор роста в методе Индивидуальный расчет калорий
-            if (message.getText().equals("Счетчик калорий") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText().equals("Счетчик калорий") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 hashForProducts.clear();
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
                 WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
@@ -177,7 +177,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             }
 
-            if (message.getText() != null && WaterBalanceMethods.checkWaterBalance(String.valueOf(message.getChatId()), "1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText() != null && WaterBalanceMethods.checkWaterBalance(String.valueOf(message.getChatId()), "1") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Водный баланс") && !message.getText().equals("Рецепты")) {
                 if (!Pattern.matches("[0-9]+[\\.]?[0-9]*", message.getText())) {
                     inlineButton1(message, "Пожайлуста вводите только цифры\nВведите свой вес(например: 50): ");
                 } else {
@@ -190,7 +190,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
             }
 
-            if (message.getText().equals("Водный баланс") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Рецепт Дня")) {
+            if (message.getText().equals("Водный баланс") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Рецепты")) {
                 hashForProducts.clear();
                 IndividualDataMethods.deleteIndividualCaloriesCalculation(String.valueOf(message.getChatId()));
                 WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
@@ -319,7 +319,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add("Рецепт Дня");
+        keyboardFirstRow.add("Рецепты");
         keyboardFirstRow.add("Счетчик калорий");
 
         // Вторая строчка клавиатуры
