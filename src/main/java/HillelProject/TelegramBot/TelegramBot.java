@@ -47,21 +47,21 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             if (message.getText().equals("\uD83E\uDD5E"+" Завтрак")) {
                 message.getChatId();
-            //    sendText2(message, SpecialOfTheDayMethod.processBreakFast(message.getText()));
+               sendText2(message, SpecialOfTheDayMethod.processBreakFast(message.getText()));
             }
             if (message.getText().equals("\uD83E\uDD57" + " Обед")) {
                 message.getChatId();
-             //   sendText2(message, SpecialOfTheDayMethod.processLunch(message.getText()));
+               sendText2(message, SpecialOfTheDayMethod.processLunch(message.getText()));
             }
 
             if (message.getText().equals("\uD83E\uDDC1"+" Десерт/Перекус")) {
                 message.getChatId();
-              //  sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDesertHalf(message.getText()));
+                sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDesertHalf(message.getText()));
             }
 
             if (message.getText().equals("\uD83C\uDF5D"+" Ужин")) {
                 message.getChatId();
-              //  sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDinner(message.getText()));
+               sendText2(message, SpecialOfTheDayMethod.specialOfTheDayDinner(message.getText()));
             }
 
             if (message.getText().equals("Назад в меню")) {
