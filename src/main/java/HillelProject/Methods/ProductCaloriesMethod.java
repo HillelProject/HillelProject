@@ -38,26 +38,30 @@ public class ProductCaloriesMethod {
             String searchProductFromSQL = ("select * from d1cfnt21boubau.products.products where \"Products_Name\" ilike " + "\'%" + message + "%\'");
 
             // Создаем подключение к базе данных
-            Statement statement = null;
 
-            statement = mainJava.connection.createStatement();
+
+            Statement statement = mainJava.connection.createStatement();
 
             // Выполняем команду Select для SQL
             ResultSet resultSet = statement.executeQuery(searchProductFromSQL);
             products();
-            result = resultSet.getString(1);
-            if (result.toUpperCase().contains(message.toUpperCase())) {
-                products.setCalories(resultSet.getInt(5));
-                products.setProduct_name(resultSet.getString(1));
-                products.setProtein(resultSet.getDouble(2));
-                products.setCarbohydrates(resultSet.getDouble(3));
-                products.setFats(resultSet.getDouble(4));
-                product.add(products);
-            }
-            result = product.stream()
-                    .map(Object::toString)
-                    .collect(Collectors.joining(""));
 
+
+            while (resultSet.next()) {
+                products();
+                result = resultSet.getString(1);
+                if (result.toUpperCase().contains(message.toUpperCase())) {
+                    products.setCalories(resultSet.getInt(5));
+                    products.setProduct_name(resultSet.getString(1));
+                    products.setProtein(resultSet.getDouble(2));
+                    products.setCarbohydrates(resultSet.getDouble(3));
+                    products.setFats(resultSet.getDouble(4));
+                    product.add(products);
+                }
+                result = product.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(""));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
