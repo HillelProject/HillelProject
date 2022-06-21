@@ -167,7 +167,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     WaterBalanceMethods.deleteIndividualWaterBalance(String.valueOf(message.getChatId()));
                     inlineButton5(message, "Хотите я вам буду напоминать о приеме воды в течении дня?");
                 } else {
-                    inlineButton1(message, "Та не звезди, нормально же общались. Давай реальную вес (например: 50): ");
+                    inlineButton1(message, "Та не звезди, нормально же общались. Давай реальный вес (например: 50): ");
                 }
 
             } else if (message.getText().equals("Водный баланс") && !message.getText().equals("Калории продуктов") && !message.getText().equals("Счетчик калорий") && !message.getText().equals("Рецепты")) {
